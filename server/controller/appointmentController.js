@@ -159,5 +159,15 @@ export const stripeWebhook = async (req, res) => {
    } catch (error) {
      console.error("Webhook error:", error);
      res.status(400).send(`Webhook Error: ${error.message}`);
-   }
- };
+    }
+  };
+  export const getAppointmentsByUser=async(req,res)=>{
+    try {
+      const userId=req.user._id;
+      const appointments=await Appointment.find({patient:userId}).populate('doctor','username specialization location').sort({appointmentDates:-1});
+      console.log(appointments);
+      return res.json({success:true,appointments});
+    } catch (error) {
+    return res.json({success:false,message:error.message});
+  }
+}

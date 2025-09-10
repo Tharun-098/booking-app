@@ -68,6 +68,7 @@ const Appointments = () => {
     }
     fetchDoctors();
   },[])
+
   const filteredDoctors = doctors.filter((doctor) => {
     const matchesSearch =
     doctor.username.toLowerCase().includes(search.toLowerCase()) ||
@@ -79,6 +80,7 @@ const Appointments = () => {
     
     return matchesSearch && matchesSpecialization;
   });
+  console.log(filteredDoctors);
   const slotsForDate =
   selectedDoctor?.availableSlots.find((slot) => {
     const slotDate = new Date(slot.date);
