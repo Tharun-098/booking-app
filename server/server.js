@@ -33,6 +33,12 @@ app.use('/api/appointment',appointmentRouter);
 app.post('/api/openai',getChatResponse);
 mongoDB();
 connectCloudinary();
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Server running locally at http://localhost:${port}`);
+  });
+}
 
+export default app;
 
  
