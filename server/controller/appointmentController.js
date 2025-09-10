@@ -73,7 +73,7 @@ export const placeAppointment = async (req, res) => {
       appointmentDates: moment(appointmentDate), 
       time: formattedTime,
     });
-   
+    console.log(appointment)   
     const dateOnlyUTC = moment(appointmentDate).utc().startOf("day").toDate();
     console.log(dateOnlyUTC);
     
@@ -125,6 +125,7 @@ export const placeAppointment = async (req, res) => {
   }
 };
 export const stripeWebhook = async (req, res) => {
+  console.log('webhook run')
    try {
      const sig = req.headers["stripe-signature"];
      const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
@@ -132,7 +133,7 @@ export const stripeWebhook = async (req, res) => {
      if (event.type === "checkout.session.completed") {
        const session = event.data.object;
        const appointmentId = session.metadata.appointmentId;
-
+       console.log("appointmentId",appointmentId)
        await Appointment.findByIdAndUpdate(appointmentId, { paymentStatus: "paid" });
 
        // Also mark doctor’s slot as booked

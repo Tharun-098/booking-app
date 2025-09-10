@@ -61,7 +61,6 @@ const Appointments = () => {
           console.log(data)
           setDoctors(data.doctors);
           console.log(data.doctors);
-          window.location.href=data.url;
         }
       } catch (error) {
         console.log(error.message)
@@ -71,16 +70,16 @@ const Appointments = () => {
   },[])
   const filteredDoctors = doctors.filter((doctor) => {
     const matchesSearch =
-      doctor.username.toLowerCase().includes(search.toLowerCase()) ||
-      doctor.specialization.toLowerCase().includes(search.toLowerCase());
-
+    doctor.username.toLowerCase().includes(search.toLowerCase()) ||
+    doctor.specialization.toLowerCase().includes(search.toLowerCase());
+    
     const matchesSpecialization =
-      specialization === "" ||
-      doctor.specialization.toLowerCase() === specialization.toLowerCase();
-
+    specialization === "" ||
+    doctor.specialization.toLowerCase() === specialization.toLowerCase();
+    
     return matchesSearch && matchesSpecialization;
   });
-   const slotsForDate =
+  const slotsForDate =
   selectedDoctor?.availableSlots.find((slot) => {
     const slotDate = new Date(slot.date);
     return (
@@ -89,10 +88,10 @@ const Appointments = () => {
       slotDate.getUTCDate() === formattedDate.getUTCDate()
     );
   })?.times || [];
-
-console.log(slotsForDate);
-
-      const handleAppointDoctors=async()=>{
+  
+  console.log(slotsForDate);
+  
+  const handleAppointDoctors=async()=>{
         try {
           const {data}=await axios.post('/api/appointment/appoint-doctors',{
             doctor:selectedDoctor._id,
@@ -102,6 +101,7 @@ console.log(slotsForDate);
           })
           if(data.success){
             console.log(data.message);
+            window.location.href=data.url;
           }
           else{
             console.log(data.message);

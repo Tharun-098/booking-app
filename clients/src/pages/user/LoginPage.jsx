@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { Users, CheckCircle, Star } from "lucide-react";
 import doctorimage from "../../assets/doctor.webp";
-import axios from 'axios';
 import { GoogleLogin } from "@react-oauth/google";
 import Navbar from "../../components/Navbar";
 import Footer from '../../components/Footer'
 import { DataContext } from "../../context/DataContext";
 import { useContext } from "react";
-
-axios.defaults.withCredentials = true;
 const LoginPage = () => {
-  const {setIsLogged,navigate,setAccessToken,setUser}=useContext(DataContext)
+  const {setIsLogged,navigate,setAccessToken,setUser,axios}=useContext(DataContext)
   const [tab, setTab] = useState("login");
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +16,7 @@ const LoginPage = () => {
     console.log("Google credential response:", credentialResponse);
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/auth/google",
+        "api/auth/google",
         { token: credentialResponse.credential },
         { headers: { "Content-Type": "application/json" },withCredentials: true }
       );
@@ -41,7 +38,7 @@ const LoginPage = () => {
   const handleLogin=async(e)=>{
     e.preventDefault();
     try {
-      const {data}=await axios.post('http://localhost:4000/api/auth/login',{email,password});
+      const {data}=await axios.post('/api/auth/login',{email,password});
       if(data.success){
         console.log(data.message);
         setEmail("");
@@ -60,7 +57,7 @@ const LoginPage = () => {
   const handleregister=async(e)=>{
     e.preventDefault();
     try {
-      const {data}=await axios.post('http://localhost:4000/api/auth/register',{username,email,password});
+      const {data}=await axios.post('/api/auth/register',{username,email,password});
       if(data.success){
         console.log(data.message);
         setAccessToken(data.accessToken)
