@@ -27,7 +27,8 @@ const doctorSchema = new mongoose.Schema(
     isApproved: { type: Boolean, default: false }, // admin approves doctor
     role: { type: String, enum: ["doctor"], default: "doctor" },
     location: {
-      HospitalNo:String,
+      HospitalName:String,
+      roomNo:String,
       street:String,
       city: String,
       state: String,
