@@ -3,6 +3,7 @@ dotenv.config();
 import Doctor from "../models/doctor.js";
 import moment from "moment";
 import Appointment from "../models/appointments.js";
+import Notification from '../models/notification.js';
 import Stripe from 'stripe';
 const stripe=new Stripe(process.env.STRIPE_API_KEY)
 
@@ -99,20 +100,14 @@ export const placeAppointment = async (req, res) => {
       },
     });
     console.log("stripe session",session)
-    // await Doctor.findByIdAndUpdate(
-    //   doctor,
-    //   {
-    //     $set: {
-    //       "availableSlots.$[dateElem].times.$[timeElem].isBooked": true,
-    //     },
-    //   },
-    //   {
-    //     arrayFilters: [
-    //       { "dateElem.date": dateOnlyUTC }, 
-    //       { "timeElem.time": formattedTime }, 
-    //     ],
-    //   }
-    // );
+    const notificationMessage=`Your appointment with Dr. ${doctorDoc.username} on ${new Date(appointmentDate).toLocaleString()} has been booked successfully.`
+    await Notification.create({
+      user:patient,
+      title:'Appointment Booked',
+      message:notificationMessage,
+      type:'appointment',
+      read:false
+    })
     return res.json({
       success: true,
       message: "Appointment booked successfully",
