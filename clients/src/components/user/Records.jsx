@@ -1,3 +1,4 @@
+import {motion} from 'framer-motion';
 import React from 'react'
 import { useContext } from 'react';
 import { useEffect,useState} from 'react';
@@ -30,7 +31,11 @@ const [showAll, setShowAll] = useState(false);
       <h1 className='font-semibold text-xl'>Upcoming Appointments</h1>
       <div className=''>
         {displayedRecords.map((record,index)=>(
-          <div key={index} className="hover:-translate-y-4 group relative bg-white shadow-md rounded-2xl p-5 w-full flex flex-col gap-1 hover:shadow-lg transition border-2 border-gray-400 
+          <motion.div 
+           initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+          key={index} className="hover:-translate-y-4 group relative bg-white shadow-md rounded-2xl p-5 w-full flex flex-col gap-1 hover:shadow-lg transition border-2 border-gray-400 
   before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 
              before:h-[4px] before:bg-gradient-to-r before:from-blue-500 before:to-green-500
              before:origin-center before:scale-x-100 before:transition-transform before:duration-300 
@@ -55,7 +60,7 @@ const [showAll, setShowAll] = useState(false);
                   </span>
                   </p>
                 </div>
-            </div>
+            </motion.div>
         ))}
         </div>
       {
