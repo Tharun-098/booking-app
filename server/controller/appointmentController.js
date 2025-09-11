@@ -108,12 +108,12 @@ export const placeAppointment = async (req, res) => {
       type:'appointment',
       read:false
     })
-    return res.json({
-      success: true,
-      message: "Appointment booked successfully",
-      appointment,
-      url:session.url
-    });
+    // return res.json({
+    //   success: true,
+    //   message: "Appointment booked successfully",
+    //   appointment,
+    //   url:session.url
+    // });
   } catch (error) {
     console.error("Error placing appointment:", error);
     return res.json({ success: false, message: error.message });
