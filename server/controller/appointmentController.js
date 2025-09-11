@@ -100,20 +100,20 @@ export const placeAppointment = async (req, res) => {
       },
     });
     console.log("stripe session",session)
-    const notificationMessage=`Your appointment with Dr. ${doctorDoc.username} on ${new Date(appointmentDate).toLocaleString()} has been booked successfully.`
-    await Notification.create({
-      user:patient,
-      title:'Appointment Booked',
-      message:notificationMessage,
-      type:'appointment',
-      read:false
-    })
-    // return res.json({
-    //   success: true,
-    //   message: "Appointment booked successfully",
-    //   appointment,
-    //   url:session.url
-    // });
+    // const notificationMessage=`Your appointment with Dr. ${doctorDoc.username} on ${new Date(appointmentDate).toLocaleString()} has been booked successfully.`
+    // await Notification.create({
+    //   user:patient,
+    //   title:'Appointment Booked',
+    //   message:notificationMessage,
+    //   type:'appointment',
+    //   read:false
+    // })
+     return res.json({
+       success: true,
+       message: "Appointment booked successfully",
+       appointment,
+       url:session.url
+     });
   } catch (error) {
     console.error("Error placing appointment:", error);
     return res.json({ success: false, message: error.message });
