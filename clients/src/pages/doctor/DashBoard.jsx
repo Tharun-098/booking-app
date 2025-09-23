@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
+import DoctorLayout from '../../components/doctor/DoctorLayout'
 
 const DashBoard = () => {
   return (
-    <div>
+    <div >
       <Navbar/>
-      <Footer/>     
+      <DoctorLayout/>
     </div>
   )
 }

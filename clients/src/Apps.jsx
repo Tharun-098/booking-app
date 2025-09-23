@@ -9,14 +9,13 @@ import DoctorLoginPage from './pages/doctor/DoctorLoginPage'
 import UserDashboard from './pages/user/Dashboard'
 import DoctorDashboard from './pages/doctor/DashBoard'
 import ProtectedRoute from './components/ProtectedRoute'
-import UserLayout from './components/user/UserLayout'
 import Profile from './components/user/Profile'
 import Notifications from './components/user/Notifications'
 import Records from './components/user/Records'
 import Appointments from './components/user/Appointments'
+import DashBoard from './components/doctor/DashBoard'
 function Apps() {
-  const { isLogged, doctorIsLogged, doctor, user, loading } = useContext(DataContext);
-
+  const { isLogged, doctor,doctorIsLogged, user, loading } = useContext(DataContext);
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -62,7 +61,11 @@ function Apps() {
 
       {/* Doctor Routes */}
       <Route path="/doctor/login" element={<ProtectedRoute isAllowed={!doctor} redirectTo="/doctor/dashboard"><DoctorLoginPage /></ProtectedRoute>} />
-      <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} />
+      {/* <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} /> */}
+      <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} >
+        {/* <Route index element={<DashBoard/>}/> */}
+        <Route path='dashboard' element={<DashBoard/>}/>
+      </Route>
     </Routes>
   );
 }
