@@ -59,12 +59,13 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     // Refresh token once on mount
     refreshAccessToken();
   }, []);
   console.log(doctor);
+  console.log(accessToken);
   return (
     <DataContext.Provider
       value={{

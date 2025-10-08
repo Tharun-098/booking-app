@@ -34,7 +34,7 @@ function Apps() {
         path="/"
         element={
           user ? <Navigate to="/user/dashboard" replace /> :
-          doctor ? <Navigate to="/doctor/dashboard" replace /> :
+          doctor ? <Navigate to="/doctor" replace /> :
           <HomePage />
         }
       />
@@ -60,11 +60,11 @@ function Apps() {
 
 
       {/* Doctor Routes */}
-      <Route path="/doctor/login" element={<ProtectedRoute isAllowed={!doctor} redirectTo="/doctor/dashboard"><DoctorLoginPage /></ProtectedRoute>} />
+      <Route path="/doctor/login" element={<ProtectedRoute isAllowed={!doctor} redirectTo="/doctor"><DoctorLoginPage /></ProtectedRoute>} />
       {/* <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} /> */}
-      <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} >
-        {/* <Route index element={<DashBoard/>}/> */}
-        <Route path='dashboard' element={<DashBoard/>}/>
+      <Route path="/doctor" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} >
+        <Route index element={<DashBoard/>}/>
+        {/*<Route path='dashboard' element={<DashBoard/>}/>  */}
       </Route>
     </Routes>
   );

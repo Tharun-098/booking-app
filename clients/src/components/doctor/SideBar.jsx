@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { Calendar, Clock, LayoutDashboard, Settings, User, Users } from 'lucide-react';
 const SideBar = () => {
     const linkClasses = ({ isActive }) =>
-    `flex items-center gap-2 px-4 py-3 rounded-r-lg font-medium transition-colors 
+    `flex items-center gap-2 md:px-4 md:py-3 py-2 rounded-r-lg font-medium transition-colors 
      ${isActive 
         ? "bg-white text-blue-700 shadow-sm border-2 border-l-green-600" 
         : "text-white hover:bg-blue-500/40"}`;
     return (
     <>
       <div className="hidden sm:flex sm:flex-col h-screen fixed bg-blue-700 sm:w-1/4 py-2.5 pt-8 pr-1 ">
-        <NavLink to="/doctor/dashboard/dashboard" className={linkClasses}>
+        <NavLink to="/doctor" className={linkClasses}>
           <LayoutDashboard/>
           <p>DashBoard</p>
         </NavLink>
