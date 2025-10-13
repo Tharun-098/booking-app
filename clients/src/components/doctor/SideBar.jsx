@@ -10,12 +10,12 @@ const SideBar = () => {
     return (
     <>
       <div className="hidden sm:flex sm:flex-col h-screen fixed bg-blue-700 sm:w-1/4 py-2.5 pt-8 pr-1 ">
-        <NavLink to="/doctor" className={linkClasses}>
+        <NavLink to="/doctor/dashboard" end className={linkClasses}>
           <LayoutDashboard/>
           <p>DashBoard</p>
         </NavLink>
 
-        <NavLink to="/user/dashboard/records" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/profile" className={linkClasses}>
           <User/>
           <p>Profile</p>
         </NavLink>

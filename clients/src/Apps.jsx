@@ -13,6 +13,7 @@ import Profile from './components/user/Profile'
 import Notifications from './components/user/Notifications'
 import Records from './components/user/Records'
 import Appointments from './components/user/Appointments'
+import Profiles from './components/doctor/Profile'
 import DashBoard from './components/doctor/DashBoard'
 function Apps() {
   const { isLogged, doctor,doctorIsLogged, user, loading } = useContext(DataContext);
@@ -34,7 +35,7 @@ function Apps() {
         path="/"
         element={
           user ? <Navigate to="/user/dashboard" replace /> :
-          doctor ? <Navigate to="/doctor" replace /> :
+          doctor ? <Navigate to="/doctor/dashboard" replace /> :
           <HomePage />
         }
       />
@@ -60,11 +61,11 @@ function Apps() {
 
 
       {/* Doctor Routes */}
-      <Route path="/doctor/login" element={<ProtectedRoute isAllowed={!doctor} redirectTo="/doctor"><DoctorLoginPage /></ProtectedRoute>} />
+      <Route path="/doctor/login" element={<ProtectedRoute isAllowed={!doctor} redirectTo="/doctor/dashboard"><DoctorLoginPage /></ProtectedRoute>} />
       {/* <Route path="/doctor/dashboard" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} /> */}
-      <Route path="/doctor" element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} >
+      <Route path="/doctor/dashboard"  element={<ProtectedRoute isAllowed={doctorIsLogged && doctor} redirectTo="/doctor/login"><DoctorDashboard /></ProtectedRoute>} >
         <Route index element={<DashBoard/>}/>
-        {/*<Route path='dashboard' element={<DashBoard/>}/>  */}
+        <Route path='profile' element={<Profiles/>}/>  
       </Route>
     </Routes>
   );

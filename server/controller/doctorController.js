@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { OAuth2Client } from "google-auth-library";
 import Doctor from "../models/doctor.js";
+import cloudinary from "cloudinary";
 const client = new OAuth2Client(process.env.CLIENT_ID);
 //create tokens
 const createTokens = (userId) => {
@@ -19,7 +20,7 @@ export const googleLogin = async (req, res) => {
   try {
     console.log("Request body:", req.body);
     console.log("Token received:", req.body.token);
-    
+
     const { token } = req.body;
     const ticket = await client.verifyIdToken({
       idToken: token,
@@ -47,28 +48,28 @@ export const googleLogin = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ success:true,message: "Login success", user, accessToken });
+    res.json({ success: true, message: "Login success", user, accessToken });
   } catch (error) {
     console.error(error);
-    res.status(400).json({ success:false,message: "Google login failed" });
+    res.status(400).json({ success: false, message: "Google login failed" });
   }
 };
 
-// Normal Login 
+// Normal Login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password)
-      return res.json({ success:false,message: "Missing credentials" });
-    
+      return res.json({ success: false, message: "Missing credentials" });
+
     const user = await Doctor.findOne({ email });
-    if (!user) return res.json({ success:false,message: "User not found" });
-    if(!user.password){
-      return res
-        .json({ success: false, message: "Please login with Google" });
+    if (!user) return res.json({ success: false, message: "User not found" });
+    if (!user.password) {
+      return res.json({ success: false, message: "Please login with Google" });
     }
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.json({ success:false,message: "Invalid password" });
+    if (!match)
+      return res.json({ success: false, message: "Invalid password" });
 
     const { accessToken, refreshToken } = createTokens(user._id);
 
@@ -79,10 +80,10 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ success:true,message: "Login successful", user, accessToken });
+    res.json({ success: true, message: "Login successful", user, accessToken });
   } catch (error) {
     console.error(error);
-    res.json({ success:false,message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -91,13 +92,18 @@ export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     if (!username || !email || !password)
-      return res.json({ success:false,message: "Missing details" });
+      return res.json({ success: false, message: "Missing details" });
 
     const existUser = await Doctor.findOne({ email });
-    if (existUser) return res.json({ success:false,message: "User already exists" });
+    if (existUser)
+      return res.json({ success: false, message: "User already exists" });
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await Doctor.create({ username, email, password: hashPassword });
+    const newUser = await Doctor.create({
+      username,
+      email,
+      password: hashPassword,
+    });
 
     const { accessToken, refreshToken } = createTokens(newUser._id);
 
@@ -108,15 +114,19 @@ export const registerUser = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.json({ success:true,message: "Registered successfully", newUser, accessToken });
+    res.json({
+      success: true,
+      message: "Registered successfully",
+      newUser,
+      accessToken,
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success:false,message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
-
-//Logout 
+//Logout
 export const logout = async (req, res) => {
   res.clearCookie("refreshToken", {
     httpOnly: true,
@@ -126,31 +136,61 @@ export const logout = async (req, res) => {
   res.json({ message: "Logged out successfully" });
 };
 
-// Get Profile 
-export const getProfile=async(req,res)=>{
-  try{
-    if (!req.user) return res.status(404).json({ success:false, message:"User not found" });
-    res.json({ success:true, user: req.user });
-  }catch(error){
+// Get Profile
+export const getProfile = async (req, res) => {
+  try {
+    if (!req.user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    res.json({ success: true, user: req.user });
+  } catch (error) {
     console.error(error);
-    res.json({ success: false, message: error.message });
+    res.json({ success: false, message: error.message });  }
+};
 
-  }
+//update doctor profile
+export const doctorDataUploader = async (req, res) => {
+  console.log(req.body);
+  try {
+    const userId = req.user;
+    const { name, email, specialization, experience, consultationFees } =
+      req.body;
+      const doctor = await Doctor.findById(userId);
+     if (!name && !email && !specialization && !experience && !consultationFees && !req.file)  {
+   return res.json({ success: false, message: "No data to update" });
+ }
+    const updateField = {};
+    if (name) updateField.username = name;
+    if (email) updateField.email = email;
+    if (specialization) updateField.specialization = specialization;
+    if (experience) updateField.experience = experience;
+    if (consultationFees) updateField.consultationFees = consultationFees;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "profiles",
+        resource_type: "image",
+      });
+      updateField.picture = result.secure_url;
+    }
+    if (req.body.location) {
+  updateField.location = {
+    ...doctor.location.toObject(), // keep existing keys
+    ...req.body.location,          // override only provided fields
+  };
 }
-    // //Refresh Access Token 
-    // export const refreshAccessToken = async (req, res) => {
-    //   try {
-    //     const token = req.cookies.refreshToken;
-    //     if (!token) return res.status(401).json({ success:false,message: "No refresh token" });
-    
-    //     const decoded = jwt.verify(token, process.env.JWT_REFRESH_TOKEN);
-    //     const user = await Doctor.findById(decoded.id);
-    //     if (!user) return res.status(404).json({success:false, message: "User not found" });
-    
-    //     const accessToken = jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN, { expiresIn: "15m" });
-    //     res.json({ accessToken });
-    //   } catch (error) {
-    //     console.error(error);
-    //     res.status(401).json({ success:false,message: "Invalid refresh token" });
-    //   }
-    // };
+
+    const user = await Doctor.findByIdAndUpdate(userId, updateField, {
+      new: true,
+    }).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Doctor not found" });
+    }
+
+    return res.json({ success: true, message: "profile updated successfully",user });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};
