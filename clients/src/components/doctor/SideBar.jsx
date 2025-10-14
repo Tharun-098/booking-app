@@ -29,7 +29,7 @@ const SideBar = () => {
           <Users/>
           <p>Patients</p>
         </NavLink>
-        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/schedule" className={linkClasses}>
           <Clock/>
           <p>Schedule</p>
         </NavLink>
@@ -41,10 +41,10 @@ const SideBar = () => {
 
       {/* Bottom Navbar (visible on small screens only) */}
       <div className="sm:hidden relative bg-blue-700 flex justify-around w-full">
-        <NavLink to="/user/dashboard/dashboard" className={linkClasses}>
+        <NavLink to="/doctor/dashboard" end className={linkClasses}>
           <LayoutDashboard/>
         </NavLink>
-        <NavLink to="/user/dashboard/records" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/profile" className={linkClasses}>
           <User/>
         </NavLink>
         <NavLink to="/user/dashboard/appointments" className={linkClasses}>
@@ -53,7 +53,7 @@ const SideBar = () => {
         <NavLink to="/user/dashboard/notifications" className={linkClasses}>
           <Users/>
         </NavLink>
-        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/schedule" className={linkClasses}>
           <Clock/>
         </NavLink>
         <NavLink to="/user/dashboard/notifications" className={linkClasses}>

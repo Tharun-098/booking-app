@@ -15,7 +15,7 @@ import { getChatResponse } from './controller/openaiController.js';
 import { stripeWebhook } from './controller/appointmentController.js';
 const app=express();
 const port=process.env.PORT || 3500;
-const allowedOrigins=["http://localhost:5173","https://booking-app-livid-two.vercel.app"];
+const allowedOrigins=["http://localhost:5173"];
 app.post('/api/payment/webhook',
     bodyparser.raw({ type: "application/json" }),
     stripeWebhook)

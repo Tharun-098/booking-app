@@ -1,16 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Users, CheckCircle, Star } from "lucide-react";
 import patientimage from "../../assets/pexels-edward-jenner-4031816 (1).jpg";
-import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { DataContext } from "../../context/DataContext";
 
-axios.defaults.withCredentials = true;
-
 const DoctorLoginPage = () => {
-  const { navigate, setDoctorIsLogged, setDoctor, setAccessToken} =
+  const { navigate, setDoctorIsLogged, setDoctor, setAccessToken, axios} =
     useContext(DataContext);
 
   const [tab, setTab] = useState("login");
@@ -21,8 +18,8 @@ const DoctorLoginPage = () => {
   // Google Login
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/api/doctor/google",
+      const { data } = await axios.post('/api/doctor/google',
+        // "https://booking-app-livid-two.vercel.app/api/doctor/google",
         { token: credentialResponse.credential },
         { headers: { "Content-Type": "application/json" } }
       );

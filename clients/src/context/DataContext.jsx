@@ -2,8 +2,8 @@ import { useEffect, useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
-//axios.defaults.baseURL = "http://localhost:4000";
+//axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
+axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 export const DataContext = createContext();

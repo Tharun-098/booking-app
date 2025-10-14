@@ -4,3 +4,40 @@
 ::-webkit-scrollbar {
   display: none;
 }
+.react-calendar{
+  min-width: 100%;
+  border-radius: 20px;
+  padding: 5px;
+}
+.react-calendar__navigation__label{
+  font-weight:700;
+  font-size: 19px;
+}
+.react-calendar__navigation__arrow:first-child,.react-calendar__navigation__arrow:last-child{
+  display: none;
+}
+.react-calendar__navigation__arrow{
+  font-size: 30px;
+}
+.react-calendar__month-view__weekdays{
+  color:black;
+  font-weight: 900;
+}
+.react-calendar__viewContainer .react-calendar__tile--now {
+    background:none;
+    color: black;
+    border-radius: 20px;
+}
+abbr{
+  text-decoration: none;
+}
+.react-calendar{
+  border: 0;
+  box-shadow: 1px 1px 4px gray ;
+  
+}
+@media screen and (max-width:768px) {
+ .react-calendar__navigation__label{
+  font-size: 12px;
+} 
+}
