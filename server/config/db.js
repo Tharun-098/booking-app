@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { addDailyAvailableSlots } from "./automationDate";
+import { addDailyAvailableSlots } from "../config/automationDate.js";
 const mongoDB=async()=>{
     try {
         mongoose.connection.on('connected',()=>{

@@ -1,6 +1,6 @@
 // dailyAvailableSlots.js
 import cron from "node-cron";
-import Doctor from "./models/doctorModel.js";
+import Doctor from "../models/doctor.js";
 
 // Generate time slots dynamically (like your frontend logic)
 const generateTimeSlots = (startHour = 9, endHour = 18) => {
