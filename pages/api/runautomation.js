@@ -1,5 +1,5 @@
-import mongoDB from "../../config/mongoDB.js";
-import { addDailyAvailableSlots } from "../../config/automationDate.js";
+import mongoDB from "../../server/config/db.js";
+import { addDailyAvailableSlots } from "../../server/config/automationDate.js";
 
 export default async function handler(req, res) {
   const { secret } = req.query;
