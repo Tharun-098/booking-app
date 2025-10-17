@@ -101,10 +101,18 @@ export const automation=async(req,res)=>{
         .status(401)
         .json({ success: false, message: "Unauthorized access" });
     }
+    const { secret } = req.query;
 
+    if (secret !== process.env.CRON_SECRET) {
+      console.log("❌ Invalid secret key");
+      return res.status(401).json({ success: false, message: "Unauthorized access" });
+    }
+
+    console.log("🔹 Connecting to MongoDB...");
     await mongoDB();
     console.log("✅ Connected to MongoDB");
-
+    
+    console.log("🔹 Running automation task...");
     const result = await addDailyAvailableSlots();
     console.log("✅ Daily automation executed successfully");
 
