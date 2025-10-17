@@ -1,5 +1,6 @@
 import Appointment from "../models/appointments.js";
-
+import mongoDB from "../../config/db.js";
+import { addDailyAvailableSlots } from "../../config/automationDate.js";
 export const getDoctorsData = async (req, res) => {
   try {
     const { user } = req;
@@ -88,5 +89,36 @@ export const getPatientData=async(req,res)=>{
     res.json({success:true,patientData,completedCount})
   } catch (error) {
     res.json({success:false,message:error.message})
+  }
+}
+
+export const automation=async(req,res)=>{
+  try {
+    const { secret } = req.query;
+
+    if (secret !== process.env.CRON_SECRET) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized access" });
+    }
+
+    await mongoDB();
+    console.log("✅ Connected to MongoDB");
+
+    const result = await addDailyAvailableSlots();
+    console.log("✅ Daily automation executed successfully");
+
+    res.status(200).json({
+      success: true,
+      message: "Automation executed successfully",
+      data: result,
+    });
+  } catch (error) {
+    console.error("❌ Cron API Error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Automation failed",
+      error: error.message,
+    });
   }
 }
