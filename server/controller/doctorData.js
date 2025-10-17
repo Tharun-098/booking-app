@@ -1,6 +1,6 @@
 import Appointment from "../models/appointments.js";
-import mongoDB from "../../config/db.js";
-import { addDailyAvailableSlots } from "../../config/automationDate.js";
+import mongoDB from "../config/db.js";
+import { addDailyAvailableSlots } from "../config/automationDate.js";
 export const getDoctorsData = async (req, res) => {
   try {
     const { user } = req;
