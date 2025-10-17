@@ -31,7 +31,7 @@ export const addDailyAvailableSlots = async () => {
           date: today,
           times: generateTimeSlots(9, 18),
         });
-        await doctor.save({{ validateBeforeSave: false }});
+        await doctor.save({validateBeforeSave: false });
       }
     }
 
