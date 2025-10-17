@@ -156,7 +156,7 @@ const DashBoard = () => {
           <div className="bg-gray-100 p-4 rounded-lg my-4 flex justify-between">
             <div>
               <h1 className="font-semibold">{data.patient.username}</h1>
-              <h1 className="font-semibold">consultation</h1>
+              <h1 className="font-semibold">{data.typeOfAppointment}</h1>
             </div>
             <div>
               <h2 className="font-medium text-sm">{data.time}</h2>

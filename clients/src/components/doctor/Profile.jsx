@@ -3,6 +3,7 @@ import photo from "../../assets/pexels-photo-4173251.webp";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { Camera, Clock, LocationEdit, Mail } from "lucide-react";
+import { Navigate } from "react-router-dom";
 const Profile = () => {
   const { setDoctor,doctor,axios,accessToken } = useContext(DataContext);
   const [edit, setEdit] = React.useState(false);
@@ -74,6 +75,20 @@ formDatas.append('location[city]', formData.location.city || "");
       }
     } catch (error) {
       console.log(error.message)
+    }
+  }
+  const handleLogout=async()=>{
+    try {
+      const {data}=await axios.post('/api/doctor/logout',{});
+      if(data.success){
+        setDoctor(null);
+        Navigate('/');
+        console.log(data.message);
+      }else{
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
   return (
@@ -278,6 +293,9 @@ formDatas.append('location[city]', formData.location.city || "");
           </span>
         </p>
       </div>
+        <button onClick={handleLogout} className="bg-blue-500 rounded-lg w-50 text-center text-white mt-3 active:bg-blue-400 transition-1 hover:bg-blue-400 mx-auto block p-2">
+          Logout
+        </button>
     </div>
   );
 };

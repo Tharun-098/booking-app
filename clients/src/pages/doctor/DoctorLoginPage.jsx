@@ -102,7 +102,7 @@ const DoctorLoginPage = () => {
           {/* Left Image */}
           <div className="py-10 md:w-1/2 w-full relative">
             <img src={patientimage} className="h-auto w-full rounded-2xl" />
-            <div className="absolute bottom-10 top-10 bg-black/40 flex flex-col justify-end p-6 text-white rounded-2xl">
+            <div className="absolute bottom-10 top-10 right-0 left-0 bg-black/40 flex flex-col justify-end p-6 text-white rounded-2xl ">
               <h1 className="text-2xl font-bold mb-2">Book your patients</h1>
               <p className="text-gray-200 mb-2">
                 Access your schedule, manage appointments, and connect with patients

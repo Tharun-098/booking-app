@@ -3,7 +3,6 @@ dotenv.config();
 import Doctor from "../models/doctor.js";
 import moment from "moment";
 import Appointment from "../models/appointments.js";
-//noimport Notification from '../models/notification.js';
 import Stripe from 'stripe';
 const stripe=new Stripe(process.env.STRIPE_API_KEY)
 
@@ -166,3 +165,56 @@ export const stripeWebhook = async (req, res) => {
     return res.json({success:false,message:error.message});
   }
 }
+
+export const addAppointment = async (req, res) => {
+  try {
+    const doctorId = req.user; 
+    const { patient, reason, typeOfAppointment, date, times } = req.body;
+
+    if (!patient || !reason || !typeOfAppointment || !date || !times) {
+      return res.json({ success: false, message: "All fields are required" });
+    }
+
+    const backendDate = new Date(`${date}T00:00:00Z`);
+
+    const doctor = await Doctor.findById(doctorId);
+    if (!doctor) {
+      return res.json({ success: false, message: "Doctor not found" });
+    }
+
+    const dateSlot = doctor.availableSlots.find(
+      (slot) => slot.date.toISOString().split("T")[0] === date
+    );
+
+    if (!dateSlot) {
+      return res.json({ success: false, message: "No available slots for this date" });
+    }
+
+    const timeSlot = dateSlot.times.find((t) => t.time === times && !t.isBooked);
+    console.log(timeSlot)
+    if (!timeSlot) {
+      return res.json({ success: false, message: "Selected time slot is not available" });
+    }
+
+    const newAppointment = await Appointment.create({
+      patient,
+      doctor: doctorId,
+      appointmentDates: backendDate,
+      time:times,
+      status: "confirmed",
+      typeOfAppointment,
+      reason,
+    });
+
+    timeSlot.isBooked = true;
+    await doctor.save();
+
+    return res.json({
+      success: true,
+      message: "Appointment created successfully",
+      appointment: newAppointment,
+    });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};

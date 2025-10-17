@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Appointment from "../models/appointments.js";
 import cloudinary from "cloudinary";
 
 export const updateProfile = async (req, res) => {
@@ -61,3 +62,24 @@ export const updateProfile = async (req, res) => {
 
 
 //THE FLOW IS THAT MULTER MIDDLEWARE EXTRACT THE FILE FROM PICTURE AND MODIFY THE REQUEST AS REQ.FILE TO STORE THE PICTURE INSTEAD OF FORMDATA.PICTURE USAGE
+
+export const getAllUsers=async(req,res)=>{
+  try {
+    const doctorId=req.user;
+    const Users=await Appointment.find({doctor:doctorId}).populate('patient','username _id');
+    if(!Users){
+      res.json({success:false,message:"No users was found"})
+    }   
+    const patientMap = {};
+    Users.forEach((appt) => {
+      if (appt.patient && !patientMap[appt.patient._id]) {
+        patientMap[appt.patient._id] = appt.patient;
+      }
+    });
+
+    const uniquePatients = Object.values(patientMap);
+    res.json({success:true,uniquePatients})
+  } catch (error) {
+    res.json({success:false,message:error.message})
+  }
+}

@@ -31,7 +31,8 @@ const appointmentSchema = new mongoose.Schema(
       enum: ["unpaid", "paid", "refunded"],
       default: "unpaid",
     },
-    typeOfAppointment:{type:String,default:"Consultation",enum:["Consultation,check up,Follow up"]}
+    typeOfAppointment:{type:String,enum:["Consultation","Check up","Follow up"],default:"Consultation"},
+    reason:{type:String}
   },
   { timestamps: true }
 );

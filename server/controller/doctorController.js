@@ -133,7 +133,7 @@ export const logout = async (req, res) => {
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
   });
-  res.json({ message: "Logged out successfully" });
+  res.json({success:true, message: "Logged out successfully" });
 };
 
 // Get Profile

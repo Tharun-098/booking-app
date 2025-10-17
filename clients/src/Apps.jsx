@@ -16,6 +16,7 @@ import Appointments from './components/user/Appointments'
 import Profiles from './components/doctor/Profile'
 import DashBoard from './components/doctor/DashBoard'
 import Schedule from './components/doctor/Schedule'
+import Patients from './components/doctor/Patients'
 function Apps() {
   const { isLogged, doctor,doctorIsLogged, user, loading } = useContext(DataContext);
   if (loading) {
@@ -68,6 +69,7 @@ function Apps() {
         <Route index element={<DashBoard/>}/>
         <Route path='profile' element={<Profiles/>}/>  
         <Route path='schedule' element={<Schedule/>}/>  
+        <Route path='patient' element={<Patients/>}/>  
       </Route>
     </Routes>
   );

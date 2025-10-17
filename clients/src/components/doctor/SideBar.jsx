@@ -25,7 +25,7 @@ const SideBar = () => {
           <p>Appointments</p>
         </NavLink>
 
-        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/patient" className={linkClasses}>
           <Users/>
           <p>Patients</p>
         </NavLink>
@@ -47,16 +47,16 @@ const SideBar = () => {
         <NavLink to="/doctor/dashboard/profile" className={linkClasses}>
           <User/>
         </NavLink>
-        <NavLink to="/user/dashboard/appointments" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/appointments" className={linkClasses}>
           <Calendar/>
         </NavLink>
-        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/patient" className={linkClasses}>
           <Users/>
         </NavLink>
         <NavLink to="/doctor/dashboard/schedule" className={linkClasses}>
           <Clock/>
         </NavLink>
-        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+        <NavLink to="/doctor/dashboard/notifications" className={linkClasses}>
           <Settings/>
         </NavLink>
       </div>
