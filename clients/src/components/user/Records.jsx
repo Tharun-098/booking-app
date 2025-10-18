@@ -71,10 +71,10 @@ const [showAll, setShowAll] = useState(false);
         showAll && 
       <button onClick={()=>setShowAll(false)} className='text-right font-semibold pr-4'>close all</button>
       }
-      {records.filter(record=>record.status==='completed').map((record,index)=>(
         <div>
+          <h1 className='font-semibold text-xl'>Completed Appointments</h1>
+      {records.filter(record=>record.status==='completed').map((record,index)=>(
 
-        <h1 className='font-semibold text-xl'>Completed Appointments</h1>
         <div key={index} className="hover:-translate-y-4 group relative bg-white shadow-md rounded-2xl p-5 w-full flex flex-col gap-1 hover:shadow-lg transition border-2 border-gray-400 
   before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 
   before:h-[4px] before:bg-gradient-to-r before:from-blue-500 before:to-green-500
@@ -101,8 +101,8 @@ const [showAll, setShowAll] = useState(false);
                   </p>
                 </div>
             </div>
-                    </div>
       ))}
+      </div>
     </div>
   )
 }

@@ -10,7 +10,6 @@ import UserDashboard from './pages/user/Dashboard'
 import DoctorDashboard from './pages/doctor/DashBoard'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './components/user/Profile'
-import Notifications from './components/user/Notifications'
 import Records from './components/user/Records'
 import Appointments from './components/user/Appointments'
 import Profiles from './components/doctor/Profile'
@@ -59,7 +58,6 @@ function Apps() {
         <Route path="profile" element={<Profile />} />
         <Route path="records" element={<Records />} />
         <Route path="appointments" element={<Appointments />} />
-        <Route path="notifications" element={<Notifications />} />
       </Route>
 
 
