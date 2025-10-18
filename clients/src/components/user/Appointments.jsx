@@ -237,7 +237,7 @@ const Appointments = () => {
                   <div className="flex items-center gap-3 mt-2">
                     <LocationEdit className="w-5 h-5 text-blue-500" />
                     <p>
-                      {doctor.location.city}, {doctor.location.state}
+                      {doctor?.location?.city}, {doctor?.location?.state}
                     </p>
                   </div>
                 </div>
@@ -290,7 +290,7 @@ const Appointments = () => {
                 <p className="text-blue-400">{selectedDoctor.specialization}</p>
                 <p className="text-sm text-gray-500 m-auto  flex items-center gap-1">
                   <LocationEdit className="w-5 h-5" />{" "}
-                  {selectedDoctor.location.city},{selectedDoctor.location.state}
+                  {selectedDoctor?.location?.city},{selectedDoctor?.location?.state}
                 </p>
               </div>
             </div>

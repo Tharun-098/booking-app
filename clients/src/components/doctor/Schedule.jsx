@@ -272,6 +272,7 @@ const Schedule = () => {
                 <option value="Consultation">Consultation</option>
                 <option value="Check up">Check up</option>
                 <option value="Follow up">Follow up</option>
+                <option value="Emergency">Emergency</option>
               </select>
             </div>
 

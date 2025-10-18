@@ -218,3 +218,57 @@ export const addAppointment = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+
+export const allAppointments = async (req, res) => {
+  try {
+    const doctorId = req.user;
+
+    const appointments = await Appointment.find({
+      doctor: doctorId,
+      status: { $in: ["pending", "confirmed", "cancelled", "completed"] },
+    })
+      .populate("patient", "username email") 
+      .sort({ appointmentDates: -1 });
+
+    res.json({
+      success: true,
+      appointments,
+    });
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const updateAppointment=async(req,res)=>{
+  try {
+    const appointmentId = req.params.id;
+    const { status } = req.body; // "confirmed" or "cancelled"
+
+    if (!["confirmed", "cancelled"].includes(status)) {
+      return res.status(400).json({ success: false, message: "Invalid status" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({ success: false, message: "Appointment not found" });
+    }
+
+    if (appointment.status !== "pending") {
+      return res.status(400).json({ success: false, message: "Only pending appointments can be updated" });
+    }
+
+    appointment.status = status;
+    await appointment.save({validateBeforeSave:false});
+
+    res.status(200).json({ success: true, message: "Appointment updated", appointment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+}
