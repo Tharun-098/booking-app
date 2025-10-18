@@ -3,7 +3,7 @@ import React from 'react'
 import { useContext } from 'react';
 import { useEffect,useState} from 'react';
 import {DataContext} from '../../context/DataContext';
-import { Calendar, Clock, LocationEditIcon } from 'lucide-react';
+import { Calendar, Check, Clock, Loader, LocationEditIcon, X } from 'lucide-react';
 const Records = () => {
   const {axios,accessToken}=useContext(DataContext)
   const [records,setRecords]=React.useState([]);
@@ -25,7 +25,8 @@ const [showAll, setShowAll] = useState(false);
     fetchRecords();
   },[])
   console.log(records);
-  const displayedRecords = showAll ? records : records.slice(0, 2);
+  const filteredRecords=records.filter(appoint=>appoint.status==="pending" || appoint.status==="confirmed");
+  const displayedRecords = showAll ? filteredRecords : filteredRecords.slice(0, 2);
   return (
     <div className='flex flex-col gap-10'>
       <h1 className='font-semibold text-xl'>Upcoming Appointments</h1>
@@ -59,6 +60,15 @@ const [showAll, setShowAll] = useState(false);
                     {record.doctor.location.HospitalName},{record.doctor.location.roomNo}
                   </span>
                   </p>
+                  {record.status==="confirmed" && 
+                  <p className='text-sm text-gray-600 mt-1'><Check className='w-6 h-6 bg-green-500 rounded-full p-1 inline mr-1'/>{record.status}</p>
+                  }
+                  {record.status==="pending" &&
+                  <p className='text-sm text-gray-600 mt-1'><Loader className='w-6 h-6 bg-orange-500 rounded-full p-1 inline mr-1'/>{record.status}</p>
+                  }
+                  {record.status==="cancelled" && 
+                  <p className='text-sm text-gray-600 mt-1'><X className='w-6 h-6 bg-red-500 rounded-full p-1 inline mr-1'/>{record.status}</p>
+                  }
                 </div>
             </motion.div>
         ))}
@@ -99,6 +109,7 @@ const [showAll, setShowAll] = useState(false);
                     {record.doctor.location.HospitalName},{record.doctor.location.roomNo}
                   </span>
                   </p>
+                  <p className='text-sm text-gray-600 mt-1'><Check className='w-6 h-6 bg-green-500 rounded-full p-1 inline mr-1'/>{record.status}</p>
                 </div>
             </div>
       ))}
