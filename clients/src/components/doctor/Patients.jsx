@@ -29,7 +29,7 @@ const Patients = () => {
         }
         fetchAppointment();
     },[])
-    console.log(appointments)
+    console.log(patientCount)
     const filteredAppointments = appointments.filter((appoint) => {
   const matchesName = search
     ? appoint.patient.username.toLowerCase().includes(search.toLowerCase().trim())

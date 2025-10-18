@@ -1,6 +1,7 @@
 import Appointment from "../models/appointments.js";
 import mongoDB from "../config/db.js";
 import { addDailyAvailableSlots } from "../config/automationDate.js";
+import mongoose from "mongoose";
 export const getDoctorsData = async (req, res) => {
   try {
     const { user } = req;
@@ -70,7 +71,7 @@ export const getPatientData=async(req,res)=>{
     const patientDataLength = await Appointment.aggregate([
       {
         $match: {
-          doctor: doctorId,
+          doctor: new mongoose.Types.ObjectId(doctorId),
           status: "completed",
         },
       },
