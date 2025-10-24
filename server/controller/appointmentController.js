@@ -274,7 +274,7 @@ export const updateAppointment=async(req,res)=>{
     await Notifications.create({
     user:patientId,
     appointment:appointmentId,
-    message:`Your appointment has been ${status} on ${new Date(appointments.appointmentDates).toDateString()}.`,
+    message:`Your appointment has been ${status} on ${new Date(appointments.appointmentDates).toDateString()}  ${appointments.time}.`,
     status 
     })
     if (patientSocket) {
