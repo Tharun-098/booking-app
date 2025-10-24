@@ -3,7 +3,9 @@ dotenv.config();
 import Doctor from "../models/doctor.js";
 import moment from "moment";
 import Appointment from "../models/appointments.js";
+import { io,onlineUsers } from '../server.js';
 import Stripe from 'stripe';
+import Notifications from '../models/notification.js';
 const stripe=new Stripe(process.env.STRIPE_API_KEY)
 
 export const getAllDoctors = async (req, res) => {
@@ -253,20 +255,39 @@ export const updateAppointment=async(req,res)=>{
       return res.status(400).json({ success: false, message: "Invalid status" });
     }
 
-    const appointment = await Appointment.findById(appointmentId);
+    const appointments = await Appointment.findById(appointmentId).populate('patient','_id');
 
-    if (!appointment) {
+    if (!appointments) {
       return res.status(404).json({ success: false, message: "Appointment not found" });
     }
 
-    if (appointment.status !== "pending") {
+    if (appointments.status !== "pending") {
       return res.status(400).json({ success: false, message: "Only pending appointments can be updated" });
     }
+     
+    appointments.status = status;
+    await appointments.save({validateBeforeSave:false});
+    
+    const patientId = appointments.patient._id.toString();
+    const patientSocket = onlineUsers[patientId];
 
-    appointment.status = status;
-    await appointment.save({validateBeforeSave:false});
+    await Notifications.create({
+    user:patientId,
+    appointment:appointmentId,
+    message:`Your appointment has been ${status} on ${new Date(appointments.appointmentDates).toDateString()}.`,
+    status 
+    })
+    if (patientSocket) {
+      io.to(patientSocket).emit("appointment_status", {
+        appointmentId: appointments._id,
+        status,
+        message: `Your appointment has been ${status}.`,
+      });
+    } else {
+      console.log("Patient offline. Save notification in DB.");
+    }
 
-    res.status(200).json({ success: true, message: "Appointment updated", appointment });
+    res.status(200).json({ success: true, message: "Appointment updated", appointments });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error" });

@@ -1,9 +1,9 @@
 import { useEffect, useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
-//axios.defaults.baseURL = "http://localhost:4000";
+import {io} from 'socket.io-client';
+//axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
+axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 export const DataContext = createContext();
@@ -18,6 +18,8 @@ export const DataProvider = ({ children }) => {
   const [doctor, setDoctor] = useState(undefined);
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState([]);
+  const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
 
   const refreshAccessToken = async () => {
@@ -59,9 +61,60 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
-    // Refresh token once on mount
+    if (!user) return;
+
+    const newSocket = io("http://localhost:4000", {
+      withCredentials: true,
+    });
+
+    newSocket.emit("register_user", user._id);
+
+    newSocket.on("appointment_status", (data) => {
+      console.log("Received notification:", data);
+      setNotification((prev) => [data, ...prev]);
+      alert(data.message);
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
+
+  useEffect(() => {
+  if (!user || !accessToken) return;
+
+  const fetchNotifications = async () => {
+    try {
+      const { data } = await axios.get("/api/user/getAllNotifications", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (data.success) {
+        setNotification((prev)=>[...data.notifications,...prev]);
+        const unread = data.notifications.filter((n) => !n.isRead);
+
+          
+          for (const note of unread) {
+            alert(note.message)
+            await axios.put(
+              `/api/user/update-notification/read/${note._id}`,
+              {},
+              { headers: { Authorization: `Bearer ${accessToken}` } }
+            );
+          }
+        }
+    }catch (error) {
+      console.error("Failed to fetch notifications:", error);
+    }
+};
+
+  fetchNotifications();
+}, [user, accessToken]);
+
+  useEffect(() => {
     refreshAccessToken();
   }, []);
   console.log(doctor);
@@ -89,6 +142,8 @@ export const DataProvider = ({ children }) => {
         setIsTimeSelect,
         isConfirm,
         setIsConfirm,
+        notification,
+        socket
       }}
     >
       {children}

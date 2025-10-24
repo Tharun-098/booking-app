@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import Appointment from "../models/appointments.js";
 import cloudinary from "cloudinary";
+import Notifications from "../models/notification.js";
 
 export const updateProfile = async (req, res) => {
   try {
@@ -81,5 +82,28 @@ export const getAllUsers=async(req,res)=>{
     res.json({success:true,uniquePatients})
   } catch (error) {
     res.json({success:false,message:error.message})
+  }
+}
+
+export const getAllNotification=async(req,res)=>{
+  try {
+    const userId = req.user._id;
+    const notifications = await Notifications.find({ user: userId })
+      .sort({ createdAt: -1 });
+    res.status(200).json({ success: true, notifications });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch notifications" });
+  }
+} 
+
+export const notificationReadmarks=async(req,res)=>{
+  try {
+    const {notId}=req.params
+    await Notifications.findByIdAndUpdate(notId,{ isRead: true },{new:true});
+    res.status(200).json({ success: true, message: "Marked as read" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to update notifications" });
   }
 }

@@ -17,6 +17,7 @@ import DashBoard from './components/doctor/DashBoard'
 import Schedule from './components/doctor/Schedule'
 import Patients from './components/doctor/Patients'
 import AppointmentPage from './components/doctor/AppointmentPage'
+import Notification from './components/user/Notification'
 function Apps() {
   const { isLogged, doctor,doctorIsLogged, user, loading } = useContext(DataContext);
   if (loading) {
@@ -58,6 +59,7 @@ function Apps() {
         <Route path="profile" element={<Profile />} />
         <Route path="records" element={<Records />} />
         <Route path="appointments" element={<Appointments />} />
+        <Route path="notifications" element={<Notification />} />
       </Route>
 
 

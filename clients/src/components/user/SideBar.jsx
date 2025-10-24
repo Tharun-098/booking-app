@@ -57,6 +57,10 @@ const SideBar = () => {
           <p>Appointments</p>
         </NavLink>
 
+        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+          <Bell />
+          <p>Notifications</p>
+        </NavLink>
       </div>
 
       {/* Bottom Navbar (visible on small screens only) */}
@@ -71,6 +75,10 @@ const SideBar = () => {
 
         <NavLink to="/user/dashboard/appointments" className={linkClasses}>
           <Plus />
+        </NavLink>
+
+        <NavLink to="/user/dashboard/notifications" className={linkClasses}>
+          <Bell />
         </NavLink>
 
         </div>

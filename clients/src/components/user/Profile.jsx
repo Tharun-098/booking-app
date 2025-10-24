@@ -26,7 +26,7 @@ const Profile = () => {
     address: user?.address || "",
     picture: user?.picture || "",
   });
-  const [previewImage, setPreviewImage] = useState(formData.picture);
+  const [previewImage, setPreviewImage] = useState(undefined);
   
   useEffect(()=>{
     setAnimation(true);
@@ -71,6 +71,7 @@ const handleSave = async () => {
     if (data.success) {
       console.log(data.message);
       setIsEditing(false);
+      setPreviewImage(undefined)
     } else {
       console.log(data.message || "Update failed");
     }
@@ -126,11 +127,10 @@ const handleSave = async () => {
           <div className="flex items-center gap-4">
             <div className="relative">
               <img
-                src={previewImage}
+                src={ previewImage || formData.picture}
                 alt="Profile"
-                className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
               />
-
               {isEditing && (
                 <>
                   <label
