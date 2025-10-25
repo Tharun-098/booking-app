@@ -200,7 +200,7 @@ const Schedule = () => {
           </div>
         </div>
       </div>
-      {!times && !edit && (
+      {times===null && (
         <div className="bg-white p-4 rounded-lg mt-5 grid md:grid-cols-3 gap-4 ">
           {slots?.map((times, index) => (
             <div
