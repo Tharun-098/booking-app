@@ -27,14 +27,14 @@ app.use(cookieParser());
 app.use(cors({origin:allowedOrigins,credentials:true}))
 app.get('/',(req,res)=>{
     res.send("Server is running");
-})
+  })
+mongoDB();
 app.use('/api/auth',authRouter);
 app.use('/api/doctor',doctorRouter);
 app.use('/api/token',tokenRouter);
 app.use('/api/user',userRouter);
 app.use('/api/appointment',appointmentRouter);
 app.post('/api/openai',getChatResponse);
-mongoDB();
 connectCloudinary();
 export const onlineUsers={};
 export const io=new Server(server,{
