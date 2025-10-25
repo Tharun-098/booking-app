@@ -11,7 +11,7 @@ const Schedule = () => {
   const [appointment, setAppointment] = useState([]);
   const [slots, setSlots] = useState([]);
   const [patients, setPatients] = useState([]);
-  const [times, setTimes] = useState("");
+  const [times, setTimes] = useState(null);
   const [load, setLoad] = useState(false);
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -200,7 +200,7 @@ const Schedule = () => {
           </div>
         </div>
       </div>
-      {!times ?(
+      {!edit ? !times ?(
         <div className="bg-white p-4 rounded-lg mt-5 grid md:grid-cols-3 gap-4 ">
           {slots?.map((times, index) => (
             <div
@@ -305,7 +305,7 @@ const Schedule = () => {
             </button>
           </form>
         </motion.div>
-      )}
+      ):null}
     </div>
   );
 };
