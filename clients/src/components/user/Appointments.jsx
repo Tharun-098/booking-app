@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
+import { toast } from "react-toastify";
 const Appointments = () => {
   const {
     user,
@@ -29,7 +30,8 @@ const Appointments = () => {
   const [doctors, setDoctors] = React.useState([]);
   const [selectTime, setSelectTime] = React.useState("");
   const [selectedDoctor, setSelectedDoctor] = React.useState(undefined);
-  const [selectedDate, setSelectedDate] = useState(new Date());;
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [reason,setReason]=useState("");
   const formattedDate = new Date(Date.UTC(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),
@@ -99,17 +101,18 @@ const Appointments = () => {
             doctor:selectedDoctor._id,
             patient:user._id,
             appointmentDate:formattedDate,
-            time:selectTime
+            time:selectTime,
+            reason
           })
           if(data.success){
-            console.log(data.message);
+            toast.success(data.message);
             window.location.href=data.url;
           }
           else{
-            console.log(data.message);
+            toast.error(data.message);
           }
         } catch (error) {
-          console.log(error.message);
+          toast.error(error.message);
         }
       }
       console.log(doctors)
@@ -387,6 +390,9 @@ const Appointments = () => {
                   year: "numeric",
                 })}
               </p>
+              <div>
+                <input className="bg-gray-100 text-black hover:ring-blue-300 w-full mt-2 p-2 rounded-lg" type="text" value={reason} onChange={(e)=>setReason(e.target.value)} placeholder="enter the reason for consultation"/>
+              </div>
               <p className="bg-gray-100 p-5 rounded-lg text-black flex gap-2 my-3">
                 <Clock className="text-blue-500" />
                 {selectTime}

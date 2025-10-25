@@ -12,6 +12,7 @@ import {
   User2,
 } from "lucide-react";
 import { DataContext } from "../../context/DataContext";
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const { navigate,user,axios,accessToken,setAccessToken,setUser,setIsLogged } = useContext(DataContext);
@@ -69,14 +70,14 @@ const handleSave = async () => {
   }});
 
     if (data.success) {
-      console.log(data.message);
+      toast.success(data.message);
       setIsEditing(false);
       setPreviewImage(undefined)
     } else {
-      console.log(data.message || "Update failed");
+      toast.error(data.message || "Update failed");
     }
   } catch (err) {
-    console.error("Error saving profile:", err);
+    toast.error("Error saving profile:", err);
   }
 };
 
@@ -97,7 +98,7 @@ const handleSave = async () => {
     try {
       const {data}=await axios.get('/api/auth/logout');
       if(data.success){
-        console.log(data.message);
+        toast.success(data.message);
         setUser(undefined);
         setIsLogged(false);
         setAccessToken(null);

@@ -2,6 +2,7 @@ import { Filter } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import {User} from 'lucide-react';
+import { motion } from "framer-motion";
 const Patients = () => {
     const {axios,accessToken}=useContext(DataContext)
     const [search,setSearch]=useState(null);
@@ -45,12 +46,14 @@ const Patients = () => {
     return (
     <div className="p-3">
       <h1 className="font-semibold md:text-2xl ">Patient Mangement</h1>
-      <div className="bg-white p-3 rounded-lg mt-2">
+      <motion.div className="bg-white p-3 rounded-lg mt-2" initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
         <h1 className="font-semibold text-gray-700 mt-2 text-lg">
-          Today Patients
+          Total Patients
         </h1>
         <h1 className="font-semibold mt-2 text-lg">{patientCount}</h1>
-      </div>
+      </motion.div>
       <div className="my-2 flex justify-between md:flex-row flex-col gap-2">
         <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} className="rounded-xl md:w-[75%] w-full p-2 bg-gray-900 text-white" placeholder="enter the name"/>
         <div className="flex-1">
@@ -74,7 +77,10 @@ const Patients = () => {
       </div>
       <div>
         {filteredAppointments.map((appoint,index)=>(
-          <div key={index} className="flex py-3 md:px-4 px-1 bg-white rounded-lg border-1 border-gray-200 my-2 justify-between">
+          <motion.div key={index} className="flex py-3 md:px-4 px-1 bg-white rounded-lg border-1 border-gray-200 my-2 justify-between" 
+          initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
             <div className="flex gap-2 items-center justify-center">
             <User className="w-10 h-10 bg-blue-200 text-blue-600 rounded-full p-2"/>
             <div>
@@ -86,7 +92,7 @@ const Patients = () => {
                 <p className="mb-2 text-sm flex items-center gap-1">{appoint.typeOfAppointment} <span className={appoint.status=="completed"?'bg-green-500 px-2 py-1 md:text-sm text-[10px] rounded-xl':'bg-red-500 px-2 py-1 md:text-sm text-[10px] rounded-xl'}>{appoint.status}</span></p>
                 <p className="font-semibold text-[12px] text-right">Last Visit : <span className="font-light text-[12px]">{new Date(appoint.appointmentDates).toLocaleDateString('en-CA')}</span></p>
             </div>
-          </div>          
+          </motion.div>          
         ))}
       </div>
     </div>

@@ -9,5 +9,5 @@ appointmentRouter.get('/get-all-appointments',authMiddleware,getAppointmentsByUs
 appointmentRouter.post('/appoint-doctors',placeAppointment);
 appointmentRouter.get('/getAppointmentsByDate/:backendDate',authMiddleware,getAppointmentByDate)
 appointmentRouter.post('/create',authMiddleware,addAppointment)
-appointmentRouter.put('/update-status/:id',authMiddleware,updateAppointment)
+appointmentRouter.put('/update-status/:id',updateAppointment)
 export default appointmentRouter;

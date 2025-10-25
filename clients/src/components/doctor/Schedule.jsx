@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { DataContext } from "../../context/DataContext";
 import "react-calendar/dist/Calendar.css";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 const Schedule = () => {
   const { axios, accessToken } = useContext(DataContext);
   const [date, setDate] = useState(new Date());
@@ -106,7 +108,7 @@ const Schedule = () => {
       );
 
       if (data.success) {
-        console.log(data.message);
+        toast.success(data.message);
         setFormData({
           patient: "",
           reason: "",
@@ -115,11 +117,11 @@ const Schedule = () => {
         setTimes("");
         setAppointment((prev) => [...prev, data.appointment]);
       } else {
-        alert(data.message || "Failed to create appointment.");
+        toast.error(data.message || "Failed to create appointment.");
       }
     } catch (error) {
-      console.error(error);
-      alert("Error creating appointment");
+      toast.error(error);
+      //alert("Error creating appointment");
     } finally {
       setLoad(false);
     }
@@ -145,7 +147,7 @@ const Schedule = () => {
           </button>
         ) : (
           <button
-            onClick={() =>setTimes("")}
+            onClick={() =>{setTimes("");setEdit(false);toast.info("Appointment creation successful")}}
             className="bg-blue-500 p-1 md:p-2 text-sm  text-white rounded-lg flex  items-center font-semibold"
           >
             <Save className="" />
@@ -227,7 +229,9 @@ const Schedule = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-white p-4 rounded-lg mt-5">
+        <motion.div className="bg-white p-4 rounded-lg mt-5" initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <h2 className="font-semibold mb-2">
             Add Appointment for{" "}
             {date?.toLocaleString("en-us", {
@@ -300,7 +304,7 @@ const Schedule = () => {
               {load ? "Saving..." : "Save Appointment"}
             </button>
           </form>
-        </div>
+        </motion.div>
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { DataContext } from "../../context/DataContext";
-
+import { toast } from "react-toastify";
 const DoctorLoginPage = () => {
   const { navigate, setDoctorIsLogged, setDoctor, setAccessToken, axios} =
     useContext(DataContext);
@@ -28,6 +28,7 @@ const DoctorLoginPage = () => {
         setAccessToken(data.accessToken);
         setDoctorIsLogged(true);
         setDoctor(data.user);
+        toast.success(data.message);
         navigate("/doctor/dashboard");
       }
     } catch (err) {
@@ -36,7 +37,7 @@ const DoctorLoginPage = () => {
   };
   
   const handleGoogleError = () => {
-    console.log("Google login failed");
+    toast.error("Google login failed");
   };
   
   // Normal login
@@ -54,12 +55,13 @@ const DoctorLoginPage = () => {
         setDoctor(data.user);
         setEmail("");
         setPassword("");
+        toast.success(data.message);
         navigate("/doctor/dashboard");
       } else {
-        console.log(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
   
@@ -82,14 +84,15 @@ const DoctorLoginPage = () => {
         setUserName("");
         setEmail("");
         setPassword("");
+        toast.success(data.message);
         setTimeout(() => {
           navigate("/doctor/dashboard");
       }, 50);
     } else {
-      console.log(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
-    console.log(error.message);
+    toast.error(error.message);
   }
 };
 

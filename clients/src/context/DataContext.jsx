@@ -2,6 +2,7 @@ import { useEffect, useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {io} from 'socket.io-client';
+import { toast } from "react-toastify";
 //axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -74,7 +75,7 @@ export const DataProvider = ({ children }) => {
     newSocket.on("appointment_status", (data) => {
       console.log("Received notification:", data);
       setNotification((prev) => [data, ...prev]);
-      alert(data.message);
+      toast.info(data.message);
     });
 
     setSocket(newSocket);
@@ -98,7 +99,7 @@ export const DataProvider = ({ children }) => {
 
           
           for (const note of unread) {
-            alert(note.message)
+            toast.info(note.message)
             await axios.put(
               `/api/user/update-notification/read/${note._id}`,
               {},

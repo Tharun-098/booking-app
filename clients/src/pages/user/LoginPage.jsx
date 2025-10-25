@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar";
 import Footer from '../../components/Footer'
 import { DataContext } from "../../context/DataContext";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 const LoginPage = () => {
   const {setIsLogged,navigate,setAccessToken,setUser,axios}=useContext(DataContext)
   const [tab, setTab] = useState("login");
@@ -23,16 +24,16 @@ const LoginPage = () => {
       console.log("User logged in:", res.data.user);
       setIsLogged(true);
       setAccessToken(res.data.accessToken)
-      alert("Login successful!");
       setUser(res.data.user)
+      toast.success(res.data.message);
       navigate('/user/dashboard');
     } catch (err) {
-      console.error("Google login error:", err);
+      toast.error("Google login error:", err);
     }
   };
   
   const handleGoogleError = () => {
-    console.log("Google login failed");
+    toast.error("Google login failed");
   };
   
   const handleLogin=async(e)=>{
@@ -46,12 +47,13 @@ const LoginPage = () => {
         setIsLogged(true);
         setAccessToken(data.accessToken);
         setUser(data.user)
+        toast.success(data.message);
         navigate('/user/dashboard');
       }else{
-        console.log(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   }
   const handleregister=async(e)=>{
@@ -63,15 +65,16 @@ const LoginPage = () => {
         setAccessToken(data.accessToken)
         setIsLogged(true);
         setUser(data.newUser)
+        toast.success(data.message);
         navigate('/user/dashboard');
         setUserName("");
         setEmail("");
         setPassword("");
       }else{
-        console.log(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   }
   return (
@@ -79,7 +82,6 @@ const LoginPage = () => {
       <Navbar/>
       <div className="flex justify-center items-center min-h-screen flex-wrap">
         <div className="max-w-4xl flex flex-col md:flex-row gap-6 md:gap-10 items-center px-3">
-          
           <div className="py-10 md:w-1/2 w-full relative">
             <img src={doctorimage} className="h-auto w-full rounded-2xl" />
             <div className="absolute bottom-10 top-10 bg-black/40 flex flex-col justify-end p-6 text-white rounded-2xl">

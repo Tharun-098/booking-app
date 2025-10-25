@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Filter, User, Calendar,Check,X } from "lucide-react";
+import { Filter, User, Calendar,Check,X, CheckCheck } from "lucide-react";
 import { DataContext } from "../../context/DataContext";
+import { toast } from "react-toastify";
+import {motion} from "framer-motion";
 const AppointmentPage = () => {
   const { axios, accessToken } = useContext(DataContext);
   const [search, setSearch] = useState("");
@@ -46,11 +48,12 @@ const AppointmentPage = () => {
           app._id === id ? { ...app, status: status } : app
         )
       );
+      toast.success(data.message);
     } else {
-      console.log(data.message);
+      toast.warning(data.message);
     }
   } catch (error) {
-    console.log(error.message);
+    toast.error(error.message);
   }
 };
   const filteredAppointments = appointments.filter((appoint) => {
@@ -80,7 +83,10 @@ const AppointmentPage = () => {
     <div className="p-3">
       <h1 className="font-semibold md:text-2xl ">Appointment Mangement</h1>
       <div className="grid md:grid-cols-2 gap-2">
-        <div className="flex items-center justify-between bg-white p-3 rounded-lg mt-2">
+        <motion.div className="flex items-center justify-between bg-white p-3 rounded-lg mt-2" 
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-semibold text-gray-700 mt-2 text-lg">
               Total Appointments
@@ -88,8 +94,11 @@ const AppointmentPage = () => {
             <h1 className="font-semibold mt-1 text-lg">{totalAppointment}</h1>
           </div>
           <div className="w-3 h-3 rounded-full bg-blue-500" />
-        </div>
-        <div className="flex items-center justify-between bg-white p-3 rounded-lg mt-2">
+        </motion.div>
+        <motion.div className="flex items-center justify-between bg-white p-3 rounded-lg mt-2"
+          initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-semibold text-gray-700 mt-2 text-lg">
               Pending Appointments
@@ -97,8 +106,10 @@ const AppointmentPage = () => {
             <h1 className="font-semibold mt-2 text-lg">{pendingAppointment}</h1>
           </div>
           <div className="w-3 h-3 rounded-full bg-orange-500" />
-        </div>
-        <div className="bg-white flex items-center justify-between p-3 rounded-lg mt-1">
+        </motion.div>
+        <motion.div className="bg-white flex items-center justify-between p-3 rounded-lg mt-1" initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-semibold text-gray-700 mt-2 text-lg">
               Confirmed Appointments
@@ -108,8 +119,11 @@ const AppointmentPage = () => {
             </h1>
           </div>
           <div className="w-3 h-3 rounded-full bg-green-500" />
-        </div>
-        <div className="bg-white p-3 rounded-lg mt-2 flex items-center justify-between">
+        </motion.div>
+        <motion.div className="bg-white p-3 rounded-lg mt-2 flex items-center justify-between"
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-semibold text-gray-700  mt-2 text-lg">
               Rejected Appointments
@@ -119,7 +133,7 @@ const AppointmentPage = () => {
             </h1>
           </div>
           <div className="w-3 h-3 rounded-full bg-red-500" />
-        </div>
+        </motion.div>
       </div>
       <div className="my-3 flex justify-between md:flex-row flex-col gap-2">
         <input
@@ -180,9 +194,12 @@ const AppointmentPage = () => {
             <div>
                 {appoint.status==="pending" && (
                     <div className="flex gap-3">
-                        <Check className="bg-red-500 text-white rounded-full p-1 w-6 h-6 md:w-8 md:h-8" onClick={()=>handleUpdate(appoint._id,"confirmed")}/>
-                        <X className="bg-green-500 text-black rounded-full p-1 w-6 h-6 md:w-8 md:h-8" onClick={()=>handleUpdate(appoint._id,"cancelled")}/>
+                        <Check className="bg-green-500 text-white rounded-full p-1 w-6 h-6 md:w-8 md:h-8" onClick={()=>handleUpdate(appoint._id,"confirmed")}/>
+                        <X className="bg-red-500 text-black rounded-full p-1 w-6 h-6 md:w-8 md:h-8" onClick={()=>handleUpdate(appoint._id,"cancelled")}/>
                     </div>
+                )}
+                {appoint.status==="confirmed" && (
+                  <CheckCheck className="bg-blue-500 text-black rounded-full p-1 w-6 h-6 md:w-8 md:h-8" onClick={()=>handleUpdate(appoint._id,"completed")}/>
                 )}
             </div>
           </div>

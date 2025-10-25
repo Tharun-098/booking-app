@@ -31,7 +31,7 @@ const [showAll, setShowAll] = useState(false);
     <div className='flex flex-col gap-10'>
       <h1 className='font-semibold text-xl'>Upcoming Appointments</h1>
       <div className=''>
-        {displayedRecords.map((record,index)=>(
+        {displayedRecords.length>0?displayedRecords.map((record,index)=>(
           <motion.div 
            initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -71,10 +71,10 @@ const [showAll, setShowAll] = useState(false);
                   }
                 </div>
             </motion.div>
-        ))}
+        )):<p className='text-lg'>No appointments are found</p>}
         </div>
       {
-        !showAll && 
+        !showAll &&  displayedRecords.length>0 &&
       <button onClick={()=>setShowAll(true)} className='text-right font-semibold pr-4'>See all</button>
       }
       {
@@ -83,7 +83,7 @@ const [showAll, setShowAll] = useState(false);
       }
         <div>
           <h1 className='font-semibold text-xl'>Completed Appointments</h1>
-      {records.filter(record=>record.status==='completed').map((record,index)=>(
+      {records.length>0?records.filter(record=>record.status==='completed').map((record,index)=>(
 
         <div key={index} className="hover:-translate-y-4 group relative bg-white shadow-md rounded-2xl p-5 w-full flex flex-col gap-1 hover:shadow-lg transition border-2 border-gray-400 
   before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 
@@ -112,7 +112,8 @@ const [showAll, setShowAll] = useState(false);
                   <p className='text-sm text-gray-600 mt-1'><Check className='w-6 h-6 bg-green-500 rounded-full p-1 inline mr-1'/>{record.status}</p>
                 </div>
             </div>
-      ))}
+      )):<p className='text-lg mt-6'>No Completed appointments</p>
+      }
       </div>
     </div>
   )

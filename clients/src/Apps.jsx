@@ -18,6 +18,7 @@ import Schedule from './components/doctor/Schedule'
 import Patients from './components/doctor/Patients'
 import AppointmentPage from './components/doctor/AppointmentPage'
 import Notification from './components/user/Notification'
+import {ToastContainer} from 'react-toastify'
 function Apps() {
   const { isLogged, doctor,doctorIsLogged, user, loading } = useContext(DataContext);
   if (loading) {
@@ -32,6 +33,8 @@ function Apps() {
   }
 
   return (
+    <div>
+      <ToastContainer/>
     <Routes>
       {/* Homepage */}
       <Route
@@ -74,6 +77,7 @@ function Apps() {
         <Route path='appointments' element={<AppointmentPage/>}/>  
       </Route>
     </Routes>
+    </div>
   );
 }
 

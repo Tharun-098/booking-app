@@ -19,9 +19,9 @@ export const getAllDoctors = async (req, res) => {
 
 export const placeAppointment = async (req, res) => {
   try {
-    const { doctor, patient, appointmentDate, time } = req.body;
+    const { doctor, patient, appointmentDate, time,reason } = req.body;
 
-    if (!doctor || !patient || !appointmentDate || !time) {
+    if (!doctor || !patient || !appointmentDate || !time ) {
       return res.json({ success: false, message: "All fields are required" });
     }
     
@@ -74,6 +74,7 @@ export const placeAppointment = async (req, res) => {
       patient,
       appointmentDates: moment(appointmentDate), 
       time: formattedTime,
+      reason
     });
     console.log(appointment)   
     const dateOnlyUTC = moment(appointmentDate).utc().startOf("day").toDate();
@@ -251,19 +252,19 @@ export const updateAppointment=async(req,res)=>{
     const appointmentId = req.params.id;
     const { status } = req.body; // "confirmed" or "cancelled"
 
-    if (!["confirmed", "cancelled"].includes(status)) {
+    if (!["confirmed", "cancelled","completed"].includes(status)) {
       return res.status(400).json({ success: false, message: "Invalid status" });
     }
 
-    const appointments = await Appointment.findById(appointmentId).populate('patient','_id');
+    const appointments= await Appointment.findById(appointmentId).populate('patient','_id');
 
     if (!appointments) {
       return res.status(404).json({ success: false, message: "Appointment not found" });
     }
 
-    if (appointments.status !== "pending") {
-      return res.status(400).json({ success: false, message: "Only pending appointments can be updated" });
-    }
+     if (appointments.status === "cancelled"  || appointments.status==="completed") {
+       return res.status(400).json({ success: false, message: "Cannot update a cancelled or completed appointments" });
+     }
      
     appointments.status = status;
     await appointments.save({validateBeforeSave:false});
@@ -281,7 +282,7 @@ export const updateAppointment=async(req,res)=>{
       io.to(patientSocket).emit("appointment_status", {
         appointmentId: appointments._id,
         status,
-        message: `Your appointment has been ${status}.`,
+        message: `Your appointment has been ${status}  ${new Date(appointments.appointmentDates).toDateString()} ${appointments.time}.`,
       });
     } else {
       console.log("Patient offline. Save notification in DB.");

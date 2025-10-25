@@ -17,7 +17,7 @@ const notificationSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["confirmed", "cancelled"],
+      enum: ["confirmed", "cancelled","completed"],
     },
     isRead: {
       type: Boolean,

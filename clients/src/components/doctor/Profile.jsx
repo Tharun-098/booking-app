@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext,useRef, useState } from "react";
 import photo from "../../assets/pexels-photo-4173251.webp";
-import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { Camera, Clock, LocationEdit, Mail } from "lucide-react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify'
+import { motion } from "framer-motion";
 const Profile = () => {
+  const navigate=useNavigate()
   const { setDoctor,doctor,axios,accessToken } = useContext(DataContext);
   const [edit, setEdit] = React.useState(false);
   const [preview,setPreview]=useState(undefined);
@@ -69,12 +71,12 @@ formDatas.append('location[city]', formData.location.city || "");
         }
       });
       if(data.success){
-        console.log(data.message);
+        toast.success(data.message);
         setEdit(false);
         setDoctor(data.user)
       }
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
   const handleLogout=async()=>{
@@ -82,13 +84,13 @@ formDatas.append('location[city]', formData.location.city || "");
       const {data}=await axios.post('/api/doctor/logout',{});
       if(data.success){
         setDoctor(null);
-        Navigate('/');
-        console.log(data.message);
+        navigate('/');
+        toast.success(data.message);
       }else{
-        console.log(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   }
   return (
@@ -119,7 +121,9 @@ formDatas.append('location[city]', formData.location.city || "");
           </div>
         )}
       </div>
-      <div className="mt-4 bg-white p-4 rounded-lg">
+      <motion.div className="mt-4 bg-white p-4 rounded-lg" initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
         <div className="mx-auto text-center flex flex-col justify-center items-center">
           {doctor?.picture ? (
             <div className="relative">
@@ -210,7 +214,7 @@ formDatas.append('location[city]', formData.location.city || "");
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
       <div className="mt-4 bg-white p-4 rounded-lg">
         <h1 className="font-bold mt-2">Professional Experience</h1>
         <h2 className="mt-2 font-semibold">Experience</h2>
@@ -246,7 +250,9 @@ formDatas.append('location[city]', formData.location.city || "");
         <h2 className="mt-2 font-semibold">Certifications</h2>
         <p className="mt-2">Certification in {doctor?.specialization}</p>
       </div>
-      <div className="mt-4 bg-white p-4 rounded-lg">
+      <motion.div className="mt-4 bg-white p-4 rounded-lg" initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
         <h1 className="font-bold mt-2 flex gap-2 items-center mb-2">
           <Clock className="text-blue-500" />
           Weekly Schedule
@@ -292,7 +298,7 @@ formDatas.append('location[city]', formData.location.city || "");
             09:00 AM-06:00 PM
           </span>
         </p>
-      </div>
+      </motion.div>
         <button onClick={handleLogout} className="bg-blue-500 rounded-lg w-50 text-center text-white mt-3 active:bg-blue-400 transition-1 hover:bg-blue-400 mx-auto block p-2">
           Logout
         </button>

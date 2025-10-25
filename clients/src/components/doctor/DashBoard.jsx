@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 ChartJS.register(
   CategoryScale,
@@ -80,7 +80,10 @@ const DashBoard = () => {
 
   return (
     <div>
-      <div className="rounded-lg bg-blue-700 text-white p-4">
+      <motion.div className="rounded-lg bg-blue-700 text-white p-4"
+      initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
         <h1 className="font-semibold text-lg">
           Welcome Back {doctor.username}
         </h1>
@@ -88,9 +91,12 @@ const DashBoard = () => {
           You have {datas?.appointmentToday?.length} appointments today and{" "}
           {datas?.pendingAppointment?.length} pending approval today
         </p>
-      </div>
+      </motion.div>
       <div className="mt-3 grid lg:grid-cols-2  gap-3">
-        <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm">
+        <motion.div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm" 
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-bold text-gray-700 mt-2 text-lg">
               Today Appointments
@@ -102,8 +108,11 @@ const DashBoard = () => {
           <div className=" bg-blue-100 flex items-center justify-center rounded-lg p-2">
             <Calendar className="text-blue-500 w-5 h-5" />
           </div>
-        </div>
-        <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm">
+        </motion.div>
+        <motion.div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm" 
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-bold text-gray-700 mt-2 text-lg">
               Total Patients
@@ -115,8 +124,11 @@ const DashBoard = () => {
           <div className=" bg-green-100 flex items-center justify-center rounded-lg p-2">
             <Users className="text-green-500 w-5 h-5" />
           </div>
-        </div>
-        <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm">
+        </motion.div>
+        <motion.div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm"
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-bold text-gray-700 mt-2 text-lg">
               Pending Approval
@@ -128,8 +140,11 @@ const DashBoard = () => {
           <div className=" bg-orange-100 flex items-center justify-center rounded-lg p-2">
             <Clock className="text-orange-500 w-5 h-5" />
           </div>
-        </div>
-        <div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm">
+        </motion.div>
+        <motion.div className="flex justify-between items-center mt-4 bg-white p-4 rounded-lg shadow-gray-500/50 shadow-sm"
+        initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut"} }>
           <div>
             <h1 className="font-bold text-gray-700 mt-2 text-lg">
               Monthly Revenue
@@ -139,7 +154,7 @@ const DashBoard = () => {
           <div className=" bg-purple-100 flex items-center justify-center rounded-lg p-2">
             <DollarSign className="text-purple-500 w-5 h-5" />
           </div>
-        </div>
+        </motion.div>
       </div>
       {datas?.chartData && (
         <div className="bg-white p-4 rounded-lg mt-4">
