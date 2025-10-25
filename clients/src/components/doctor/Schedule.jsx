@@ -200,7 +200,7 @@ const Schedule = () => {
           </div>
         </div>
       </div>
-      {!times ?(
+      {!times && (
         <div className="bg-white p-4 rounded-lg mt-5 grid md:grid-cols-3 gap-4 ">
           {slots?.map((times, index) => (
             <div
@@ -228,7 +228,8 @@ const Schedule = () => {
             </div>
           ))}
         </div>
-      ) : (
+      )}
+      {times && edit && (
         <motion.div className="bg-white p-4 rounded-lg mt-5" initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6, ease: "easeOut"} }>
