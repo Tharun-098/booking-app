@@ -393,14 +393,14 @@ const Appointments = () => {
                 })}
               </p>
               <div>
-                <input className="bg-gray-100 text-black hover:ring-blue-300 w-full mt-2 p-2 rounded-lg" type="text" value={reason} onChange={(e)=>setReason(e.target.value)} placeholder="enter the reason for consultation"/>
+                <input className="bg-gray-100 text-black hover:ring-blue-300 w-full my-2 p-3 rounded-lg" type="text" value={reason} onChange={(e)=>setReason(e.target.value)} placeholder="enter the reason for consultation"/>
               </div>
               <select
                 value={typeOfAppointment}
                 onChange={(e) =>
                   setTypeOfAppointment(e.target.value)
                 }
-                className="border p-1 rounded w-full"
+                className=" p-3 rounded w-full bg-gray-100 outline-0 border-0 my-2"
               >
                 <option value="Consultation">Consultation</option>
                 <option value="Check up">Check up</option>
