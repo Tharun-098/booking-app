@@ -27,8 +27,8 @@ const LoginPage = () => {
       setUser(res.data.user)
       toast.success(res.data.message);
       navigate('/user/dashboard');
-    } catch (err) {
-      toast.error("Google login error:", err);
+    } catch (error) {
+      toast.error("Google login error:", error.message);
     }
   };
   
