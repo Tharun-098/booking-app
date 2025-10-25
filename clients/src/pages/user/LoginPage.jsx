@@ -28,7 +28,7 @@ const LoginPage = () => {
       toast.success(res.data.message);
       navigate('/user/dashboard');
     } catch (error) {
-      toast.error("Google login error:", error.message);
+      toast.error(error.message);
     }
   };
   
