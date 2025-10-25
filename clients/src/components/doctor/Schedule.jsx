@@ -11,9 +11,9 @@ const Schedule = () => {
   const [appointment, setAppointment] = useState([]);
   const [slots, setSlots] = useState([]);
   const [patients, setPatients] = useState([]);
-  const [times, setTimes] = useState(null);
+  const [times, setTimes] = useState("");
   const [load, setLoad] = useState(false);
-  const [edit, setEdit] = useState(false);
+//  const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
     patient: "",
     reason: "",
@@ -138,7 +138,7 @@ const Schedule = () => {
     <div className="p-3">
       <div className="flex justify-between items-center">
         <h1 className="font-semibold md:text-2xl ">Schedule Mangement</h1>
-          {!edit ?(<button
+          {/* {!edit ?(<button
           onClick={()=>{setEdit(true)}}
             className="bg-blue-500 p-1 md:p-2 text-sm  text-white rounded-lg flex  items-center font-semibold"
           >
@@ -154,7 +154,8 @@ const Schedule = () => {
             save
           </button>
         )}
-      </div>
+        */}
+      </div> 
       <div className="flex justify-between gap-3 mt-2 flex-col md:flex-row">
         <div className="flex-1">
           <Calendar
@@ -200,7 +201,7 @@ const Schedule = () => {
           </div>
         </div>
       </div>
-      {times===null && (
+      {!times && (
         <div className="bg-white p-4 rounded-lg mt-5 grid md:grid-cols-3 gap-4 ">
           {slots?.map((times, index) => (
             <div
@@ -229,7 +230,7 @@ const Schedule = () => {
           ))}
         </div>
       )}
-      {times && edit && (
+      {times && (
         <motion.div className="bg-white p-4 rounded-lg mt-5" initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6, ease: "easeOut"} }>

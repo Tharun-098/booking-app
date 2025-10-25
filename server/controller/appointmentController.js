@@ -19,7 +19,7 @@ export const getAllDoctors = async (req, res) => {
 
 export const placeAppointment = async (req, res) => {
   try {
-    const { doctor, patient, appointmentDate, time,reason } = req.body;
+    const { doctor, patient, appointmentDate, time,reason,typeOfAppointment } = req.body;
 
     if (!doctor || !patient || !appointmentDate || !time ) {
       return res.json({ success: false, message: "All fields are required" });
@@ -74,7 +74,8 @@ export const placeAppointment = async (req, res) => {
       patient,
       appointmentDates: moment(appointmentDate), 
       time: formattedTime,
-      reason
+      reason,
+      typeOfAppointment
     });
     console.log(appointment)   
     const dateOnlyUTC = moment(appointmentDate).utc().startOf("day").toDate();

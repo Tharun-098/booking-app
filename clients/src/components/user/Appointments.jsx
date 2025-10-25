@@ -32,6 +32,7 @@ const Appointments = () => {
   const [selectedDoctor, setSelectedDoctor] = React.useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason,setReason]=useState("");
+  const [typeOfAppointment,setTypeOfAppointment]=useState("");
   const formattedDate = new Date(Date.UTC(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),
@@ -102,7 +103,8 @@ const Appointments = () => {
             patient:user._id,
             appointmentDate:formattedDate,
             time:selectTime,
-            reason
+            reason,
+            typeOfAppointment
           })
           if(data.success){
             toast.success(data.message);
@@ -393,6 +395,18 @@ const Appointments = () => {
               <div>
                 <input className="bg-gray-100 text-black hover:ring-blue-300 w-full mt-2 p-2 rounded-lg" type="text" value={reason} onChange={(e)=>setReason(e.target.value)} placeholder="enter the reason for consultation"/>
               </div>
+              <select
+                value={typeOfAppointment}
+                onChange={(e) =>
+                  setTypeOfAppointment(e.target.value)
+                }
+                className="border p-1 rounded w-full"
+              >
+                <option value="Consultation">Consultation</option>
+                <option value="Check up">Check up</option>
+                <option value="Follow up">Follow up</option>
+                <option value="Emergency">Emergency</option>
+              </select>
               <p className="bg-gray-100 p-5 rounded-lg text-black flex gap-2 my-3">
                 <Clock className="text-blue-500" />
                 {selectTime}
