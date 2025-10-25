@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../../components/Navbar'
 
 import UserLayout from '../../components/user/UserLayout'
-import ChatBotWidget from '../../components/chatBotWidget'
+import ChatBotWidget from '../../components/ChatBotWidget'
 
 const Dashboard = () => {
   return (
