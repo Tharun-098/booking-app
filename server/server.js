@@ -18,7 +18,7 @@ import http from 'http';
 const app=express();
 const port=process.env.PORT || 3500;
 const server=http.createServer(app);
-const allowedOrigins=[/*"http://localhost:5173",*/"https://booking-app-v3hw-pc15yu4o1-tharuns-projects-49537103.vercel.app"];
+const allowedOrigins=[/*"http://localhost:5173",*/"https://booking-app-thhd.vercel.app"];
 app.post('/api/payment/webhook',
     bodyparser.raw({ type: "application/json" }),
     stripeWebhook)

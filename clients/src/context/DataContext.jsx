@@ -66,7 +66,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    const newSocket = io("http://localhost:4000", {
+    const newSocket = io("https://booking-app-livid-two.vercel.app", {
       withCredentials: true,
     });
 
