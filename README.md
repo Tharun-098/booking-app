@@ -7,12 +7,12 @@ https://booking-app-thhd.vercel.app
 
 Features:
 User Features:
-Register & Login – Create an account or log in securely using JWT authentication and google ouath signin
-Book Appointments – Choose a doctor, date, and time to confirm an appointment
-Track Status – View confirmed, pending, or cancelled appointments in your dashboard and also notify the status of appointments
-Profile Management – Edit profile info (name, email, phone, gender, DOB, address)
-Profile Picture Upload – Upload or update your profile image (Multer + Cloudinary)
-Secure Access – Access only your personal data and booking history
+--Register & Login – Create an account or log in securely using JWT authentication and google ouath signin
+--Book Appointments – Choose a doctor, date, and time to confirm an appointment
+--Track Status – View confirmed, pending, or cancelled appointments in your dashboard and also notify the status of appointments
+--Profile Management – Edit profile info (name, email, phone, gender, DOB, address)
+--Profile Picture Upload – Upload or update your profile image (Multer + Cloudinary)
+--Secure Access – Access only your personal data and booking history
 
 Doctor Features:
 Appointment Management – View all booking requests and confirmed appointments
