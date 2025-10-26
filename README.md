@@ -5,9 +5,8 @@ This project focuses on real-world usability, security, and responsiveness — f
 
 https://booking-app-thhd.vercel.app
 
-Features
-User Features
-
+Features:
+User Features:
 Register & Login – Create an account or log in securely using JWT authentication and Google OAuth sign-in
 
 Book Appointments – Choose a doctor, date, and time to confirm an appointment
