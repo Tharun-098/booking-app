@@ -6,7 +6,9 @@ This project focuses on real-world usability, security, and responsiveness — f
 https://booking-app-thhd.vercel.app
 
 Features:
+
 User Features:
+
 Register & Login – Create an account or log in securely using JWT authentication and Google OAuth sign-in
 
 Book Appointments – Choose a doctor, date, and time to confirm an appointment
@@ -19,7 +21,7 @@ Profile Picture Upload – Upload or update a profile image (Multer + Cloudinary
 
 Secure Access – Access only personal data and appointment history
 
-Doctor Features
+Doctor Features:
 
 Appointment Management – View all booking requests and confirmed appointments
 
@@ -34,30 +36,54 @@ Payment Tracking – Check users’ payment statuses (paid/unpaid)
 Profile Update – Edit profile details and upload a professional photo
 
 Tech Stack:
+
 Frontend:
+
 React.js
+
 Tailwind CSS
+
 Axios
+
 React Router DOM
+
 React Toastify
+
 chart Js
+
 Framer-motion
+
 lucide-react
+
 react-calendar
 
+
 Backend:
+
 Node.js
+
 Express.js
+
 MongoDB (Mongoose)
+
 Multer (Image Upload)
+
 Cloudinary (Image Hosting)
+
 JWT (Authentication)
-Google Oauth
-web socket
-stripe 
-open ai
-nodecron
+
+Google OAuth
+
+WebSocket (Real-time Notifications)
+
+Stripe (Payment Integration)
+
+OpenAI (AI-based Recommendations or Chat Features)
+
+Node-Cron (Automated Scheduling Tasks)
 
 Deployment:
+
 Frontend: Vercel
+
 Backend: Vercel (API)
