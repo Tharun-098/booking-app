@@ -5,22 +5,34 @@ This project focuses on real-world usability, security, and responsiveness — f
 
 https://booking-app-thhd.vercel.app
 
-Features:
-User Features:
---Register & Login – Create an account or log in securely using JWT authentication and google ouath signin
---Book Appointments – Choose a doctor, date, and time to confirm an appointment
---Track Status – View confirmed, pending, or cancelled appointments in your dashboard and also notify the status of appointments
---Profile Management – Edit profile info (name, email, phone, gender, DOB, address)
---Profile Picture Upload – Upload or update your profile image (Multer + Cloudinary)
---Secure Access – Access only your personal data and booking history
+Features
+User Features
 
-Doctor Features:
+Register & Login – Create an account or log in securely using JWT authentication and Google OAuth sign-in
+
+Book Appointments – Choose a doctor, date, and time to confirm an appointment
+
+Track Status – View confirmed, pending, or cancelled appointments in the dashboard and get notified about status updates
+
+Profile Management – Edit profile information (name, email, phone, gender, date of birth, address)
+
+Profile Picture Upload – Upload or update a profile image (Multer + Cloudinary)
+
+Secure Access – Access only personal data and appointment history
+
+Doctor Features
+
 Appointment Management – View all booking requests and confirmed appointments
-Approve / Reject Bookings – Control appointment requests in real time
+
+Approve / Reject Bookings – Manage appointment requests in real time
+
 Availability Control – Set available dates and time slots
-User Communication – Notify users about booking updates (email or notifications)
+
+User Communication – Notify users about booking updates (email or in-app notifications)
+
 Payment Tracking – Check users’ payment statuses (paid/unpaid)
-Profile Update – Edit your own profile and upload a professional photo
+
+Profile Update – Edit profile details and upload a professional photo
 
 Tech Stack:
 Frontend:
