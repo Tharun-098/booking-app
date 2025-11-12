@@ -27,7 +27,7 @@ const Profile = () => {
     address: user?.address || "",
     picture: user?.picture || "",
   });
-  const [previewImage, setPreviewImage] = useState(undefined);
+  const [previewImage, setPreviewImage] = useState(<User/>);
   
   useEffect(()=>{
     setAnimation(true);
@@ -127,11 +127,12 @@ const handleSave = async () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-6 mb-6">
           <div className="flex items-center gap-4">
             <div className="relative">
-              {formData.picture?<img
+               {/* {formData.picture? */}
+              <img 
                 src={ previewImage || formData.picture}
                 alt="Profile"
-                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
-              />:<User size={50} className='rounded-full text-gray-500 p-2 bg-gray-300'/>}
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"/>
+              {/* />:<User size={50} className='rounded-full text-gray-500 p-2 bg-gray-300'/>} */}
               {isEditing && (
                 <>
                   <label
