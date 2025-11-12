@@ -27,7 +27,7 @@ const Profile = () => {
     address: user?.address || "",
     picture: user?.picture || "",
   });
-  const [previewImage, setPreviewImage] = useState(<User/>);
+  const [previewImage, setPreviewImage] = useState(undefined);
   
   useEffect(()=>{
     setAnimation(true);
