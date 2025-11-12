@@ -129,7 +129,7 @@ const handleSave = async () => {
             <div className="relative">
                {/* {formData.picture? */}
               <img 
-                src={ previewImage || formData.picture}
+                src={ previewImage || formData.picture || "https://share.google/images/Ih3vYZN6QZulPXZxl"}
                 alt="Profile"
                 className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"/>
               {/* />:<User size={50} className='rounded-full text-gray-500 p-2 bg-gray-300'/>} */}
