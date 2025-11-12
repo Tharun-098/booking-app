@@ -44,7 +44,7 @@ const DoctorLoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:4000/api/doctor/login", {
+      const { data } = await axios.post("/api/doctor/login", {
         email,
         password,
       });
@@ -70,7 +70,7 @@ const DoctorLoginPage = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/doctor/register",
+        "/api/doctor/register",
         { username, email, password }
       );
       
