@@ -74,7 +74,7 @@ const handleSave = async () => {
       toast.success(data.message);
       setIsEditing(false);
       setPreviewImage(undefined)
-      setFormData((prev)=>({...prev,picture:data?.updatedUser?.picture}))
+      setFormData((prev)=>({...prev,picture:data?.user?.picture}))
     } else {
       toast.error(data.message || "Update failed");
     }
