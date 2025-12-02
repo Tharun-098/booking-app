@@ -74,12 +74,12 @@ const Appointments = () => {
 
   const filteredDoctors = doctors.filter((doctor) => {
     const matchesSearch =
-    doctor.username.toLowerCase().includes(search.toLowerCase()) ||
-    doctor.specialization.toLowerCase().includes(search.toLowerCase());
+    doctor?.username?.toLowerCase().includes(search.toLowerCase()) ||
+    doctor?.specialization?.toLowerCase().includes(search.toLowerCase());
     
     const matchesSpecialization =
     specialization === "" ||
-    doctor.specialization.toLowerCase() === specialization.toLowerCase();
+    doctor?.specialization?.toLowerCase() === specialization.toLowerCase();
     
     return matchesSearch && matchesSpecialization;
   });
