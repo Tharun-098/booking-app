@@ -20,7 +20,7 @@ export const googleLogin = async (req, res) => {
     console.log("Request body:", req.body);
     console.log("Token received:", req.body.token);
 
-    const { token } = req.body;
+    const { credential } = req.body;
 
     const ticket = await client.verifyIdToken({
       idToken: token,
