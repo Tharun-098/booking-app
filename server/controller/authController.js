@@ -26,6 +26,8 @@ export const googleLogin = async (req, res) => {
       idToken: credential,
       audience: process.env.CLIENT_ID,
     });
+    
+console.log("CLIENT_ID:", process.env.CLIENT_ID);
     const payload = ticket.getPayload();
 
     let user = await User.findOne({ email: payload.email });
