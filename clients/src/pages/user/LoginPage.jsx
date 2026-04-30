@@ -18,7 +18,7 @@ const LoginPage = () => {
     try {
       const res = await axios.post(
         "api/auth/google",
-        { token: credentialResponse.credential },
+        { credential: credentialResponse.credential },
         { headers: { "Content-Type": "application/json" },withCredentials: true }
       );
       console.log("User logged in:", res.data.user);
