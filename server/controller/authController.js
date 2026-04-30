@@ -23,7 +23,7 @@ export const googleLogin = async (req, res) => {
     const { credential } = req.body;
 
     const ticket = await client.verifyIdToken({
-      idToken: token,
+      idToken: credential,
       audience: process.env.CLIENT_ID,
     });
     const payload = ticket.getPayload();
