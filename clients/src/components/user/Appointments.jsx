@@ -76,22 +76,12 @@ const Appointments = () => {
     const name = doctor.username ? doctor.username.toLowerCase() : "";
   const spec = doctor.specialization ? doctor.specialization.toLowerCase() : "";
     const matchesSearch =
-<<<<<<< HEAD
     name.includes(search.toLowerCase()) 
     spec.includes(search.toLowerCase());
     
     const matchesSpecialization =
     specialization === "" ||
     spec.toLowerCase() === specialization.toLowerCase();
-=======
-    doctor?.username?.toLowerCase().includes(search.toLowerCase()) ||
-    doctor?.specialization?.toLowerCase().includes(search.toLowerCase());
-    
-    const matchesSpecialization =
-    specialization === "" ||
-    doctor?.specialization?.toLowerCase() === specialization.toLowerCase();
->>>>>>> a9461baba4a829fc97ad9045c5850a98ed49c041
-    
     return matchesSearch && matchesSpecialization;
   });
   console.log(filteredDoctors);
