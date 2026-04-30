@@ -18,7 +18,7 @@ const createTokens = (userId) => {
 export const googleLogin = async (req, res) => {
   try {
     console.log("Request body:", req.body);
-    console.log("Token received:", req.body.token);
+    console.log("Token received:", req.body.credential);
 
     const { credential } = req.body;
 
