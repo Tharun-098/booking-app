@@ -28,7 +28,7 @@ app.use(cors({origin:allowedOrigins,credentials:true}))
 app.get('/',(req,res)=>{
     res.send("Server is running");
   })
-mongoDB();
+await mongoDB();
 app.use('/api/auth',authRouter);
 app.use('/api/doctor',doctorRouter);
 app.use('/api/token',tokenRouter);
