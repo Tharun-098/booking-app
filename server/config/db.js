@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { addDailyAvailableSlots } from "../config/automationDate.js";
 const mongoDB=async()=>{
     try {
+        console.log("Mongo URI exists:", !!process.env.MONGODB_URL);
         mongoose.connection.on('connected',()=>{
             console.log("Database is connected");
         })
