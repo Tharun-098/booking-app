@@ -259,7 +259,9 @@ const Appointments = () => {
                   <div>
                     <p className="text-sm font-semibold">Next Date</p>
                     <p className="text-gray-400 text-sm">
-                      {doctor.availableSlots[0].date.split("T")[0]}
+                     { doctor.availableSlots?.[0]?.date
+  ? doctor.availableSlots[0].date.split("T")[0]
+  : "No slots available"}
                     </p>
                   </div>
                 </div>
