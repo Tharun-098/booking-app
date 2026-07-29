@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {io} from 'socket.io-client';
 import { toast } from "react-toastify";
-//axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://booking-app-livid-two.vercel.app";
+//axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 export const DataContext = createContext();
