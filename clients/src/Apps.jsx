@@ -48,7 +48,7 @@ function Apps() {
 
       {/* User Routes */}
       <Route path="/user/login" element={<ProtectedRoute isAllowed={!user} redirectTo="/user/dashboard"><LoginPage /></ProtectedRoute>} />
-      <Route path="/user/dashboard" element={<ProtectedRoute isAllowed={isLogged && user} redirectTo="/user/login"><UserDashboard /></ProtectedRoute>} />
+      {/* <Route path="/user/dashboard" element={<ProtectedRoute isAllowed={isLogged && user} redirectTo="/user/login"><UserDashboard /></ProtectedRoute>} /> */}
        
       <Route
         path="/user/dashboard"
