@@ -19,8 +19,7 @@ const app=express();
 const port=process.env.PORT || 3500;
 const server=http.createServer(app);
 const allowedOrigins=["http://localhost:5173","https://booking-app-thhd.vercel.app"];
-
-        await mongoDB();
+await mongoDB();
 app.post('/api/payment/webhook',
     bodyparser.raw({ type: "application/json" }),
     stripeWebhook)
