@@ -442,7 +442,7 @@ const Appointments = () => {
             <div onClick={()=>{if (!isSubmit) {
       handleAppointDoctors();
     }}
-            } className="bg-white border-1 border-gray-400 rounded-lg p-7 text-center md:w-1/3 w-full h-1/2">
+            } className={`bg-white border-1  border-gray-400 rounded-lg p-7 text-center md:w-1/3 w-full h-1/2 ${isSubmit ? "pointer-events-none opacity-50":"cursor-pointer"}`}>
               <div className="bg-green-400 text-white p-6 rounded-lg">
                 <p>Confirm Appointment</p>
                 <p className="text-gray-200">
