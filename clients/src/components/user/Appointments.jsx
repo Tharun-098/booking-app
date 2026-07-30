@@ -32,7 +32,7 @@ const Appointments = () => {
   const [selectedDoctor, setSelectedDoctor] = React.useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason,setReason]=useState("");
-  const [typeOfAppointment,setTypeOfAppointment]=useState("");
+  const [typeOfAppointment,setTypeOfAppointment]=useState("Consultation");
   const formattedDate = new Date(Date.UTC(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),

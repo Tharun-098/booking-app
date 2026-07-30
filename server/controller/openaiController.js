@@ -12,7 +12,7 @@ export const getChatResponse=async(req,res)=>{
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    const model = client.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = client.getGenerativeModel({ model: 'gemini-flash-latest' });
     const prompt=`You are a medical triage assistant for a hospital website.
 Based on the patient's symptoms, respond ONLY with valid JSON, no markdown, no code fences, in this exact shape:
 {
