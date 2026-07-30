@@ -25,6 +25,7 @@ const Appointments = () => {
     setIsConfirm,
     axios
   } = useContext(DataContext);
+  const [isConfirm,setIsConfirm]=useState(false);
   const [specialization, setSpecialization] = React.useState("");
   const [search, setSearch] = React.useState("");
   const [doctors, setDoctors] = React.useState([]);
@@ -98,6 +99,7 @@ const Appointments = () => {
   console.log(slotsForDate);
   
   const handleAppointDoctors=async()=>{
+        setIsConfirm(true);
         try {
           const {data}=await axios.post('/api/appointment/appoint-doctors',{
             doctor:selectedDoctor._id,
@@ -437,7 +439,7 @@ const Appointments = () => {
                 </span>
               </p>
             </div>
-            <div onClick={handleAppointDoctors} className="bg-white border-1 border-gray-400 rounded-lg p-7 text-center md:w-1/3 w-full h-1/2">
+            <div onClick={handleAppointDoctors} disabled={isConfirm} className="bg-white border-1 border-gray-400 rounded-lg p-7 text-center md:w-1/3 w-full h-1/2">
               <div className="bg-green-400 text-white p-6 rounded-lg">
                 <p>Confirm Appointment</p>
                 <p className="text-gray-200">
