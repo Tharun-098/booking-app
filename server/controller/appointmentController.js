@@ -97,7 +97,7 @@ export const placeAppointment = async (req, res) => {
       ],
       mode: "payment",
       success_url: `https://booking-app-thhd.vercel.app/user/dashboard/records?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://booking-app-thhd.vercel.app/payment-cancel`,
+      cancel_url: `https://booking-app-thhd.vercel.app/user/dashboard/appointments`,
       metadata: {
         appointmentId: appointment._id.toString(),
       },
