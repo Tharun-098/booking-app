@@ -92,7 +92,7 @@ const ChatBotWidget = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your symptoms..."
-              className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none"
+              className="sm:flex-1  border rounded-lg px-3 py-2 text-sm focus:outline-none"
             />
             <button
               onClick={handleSend}
