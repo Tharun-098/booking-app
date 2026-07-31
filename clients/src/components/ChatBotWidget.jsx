@@ -51,8 +51,10 @@ const ChatBotWidget = () => {
 
       {/* Chatbot Modal */}
       {isOpen && (
-        <div className="fixed bottom-15 right-4 md:bottom-20 md:right-6 md:w-80 w-60 bg-white rounded-2xl shadow-xl border flex flex-col">
-          {/* Header */}
+        <div 
+        //className="fixed bottom-15 right-4 md:bottom-20 md:right-6 md:w-80 w-60 bg-white rounded-2xl shadow-xl border flex flex-col">
+        className="fixed bottom-20 right-4 md:bottom-20 md:right-6 w-[90vw] max-w-80 bg-white rounded-2xl shadow-xl border flex flex-col z-50"  >
+        {/* Header */}
           <div className="flex justify-between items-center p-3 border-b bg-blue-600 text-white rounded-t-2xl">
             <h2 className="text-sm font-semibold">Health Assistant</h2>
             <button onClick={() => setIsOpen(false)}>
@@ -94,7 +96,8 @@ const ChatBotWidget = () => {
             />
             <button
               onClick={handleSend}
-              className="bg-blue-600 text-white md:px-3 px-1 py-2 rounded-lg text-sm hover:bg-blue-700"
+              //className="bg-blue-600 text-white md:px-3 px-1 py-2 rounded-lg text-sm hover:bg-blue-700"
+              className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 bg-blue-600 text-white p-3 md:p-4 rounded-full shadow-lg hover:bg-blue-700 transition"
             >
               Send
             </button>
