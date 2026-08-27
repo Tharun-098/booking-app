@@ -28,14 +28,14 @@ const Hero = () => {
                   class="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg text-lg shadow-md hover:bg-blue-700 hover:-translate-y-1 transition"
                   onClick={()=>navigate('/user/Login')}
                 >
-                  Book Appointment
+                  Patient Login
                 </button>
                 <button
                   id="learnMore"
                   class="px-8 py-4 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg text-lg hover:bg-blue-600 hover:text-white hover:-translate-y-1 transition"
                   onClick={()=>navigate('/doctor/login')}
                 >
-                  Book your patients
+                  Doctor Login
                 </button>
               </div>
             </div>
