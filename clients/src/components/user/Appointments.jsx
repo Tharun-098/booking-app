@@ -17,12 +17,6 @@ import { toast } from "react-toastify";
 const Appointments = () => {
   const {
     user,
-    setIsDoctorSelect,
-    doctorSelect,
-    isTimeSelect,
-    setIsTimeSelect,
-    isConfirm,
-    setIsConfirm,
     axios
   } = useContext(DataContext);
   const [isSubmit,setIsSubmit]=useState(false);
@@ -34,6 +28,9 @@ const Appointments = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reason,setReason]=useState("");
   const [typeOfAppointment,setTypeOfAppointment]=useState("Consultation");
+  const [doctorSelect,setIsDoctorSelect]=useState(true);
+  const [isTimeSelect,setIsTimeSelect]=useState(false);
+  const [isConfirm,setIsConfirm]=useState(false);
   const formattedDate = new Date(Date.UTC(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),

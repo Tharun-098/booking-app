@@ -11,9 +11,6 @@ export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [doctorSelect, setIsDoctorSelect] = useState(true);
-  const [isTimeSelect, setIsTimeSelect] = useState(false);
-  const [isConfirm, setIsConfirm] = useState(false);
   const [doctorIsLogged, setDoctorIsLogged] = useState(false);
   const [user, setUser] = useState(undefined);
   const [doctor, setDoctor] = useState(undefined);
@@ -22,7 +19,6 @@ export const DataProvider = ({ children }) => {
   const [notification, setNotification] = useState([]);
   const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
-
   const refreshAccessToken = async () => {
     try {
       const { data } = await axios.get("/api/token/refresh");
@@ -137,14 +133,8 @@ export const DataProvider = ({ children }) => {
         refreshAccessToken,
         loading,
         axios,
-        doctorSelect,
-        setIsDoctorSelect,
-        isTimeSelect,
-        setIsTimeSelect,
-        isConfirm,
-        setIsConfirm,
         notification,
-        socket
+        socket,
       }}
     >
       {children}
