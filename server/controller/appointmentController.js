@@ -163,8 +163,13 @@ export const stripeWebhook = async (req, res) => {
     try {
       const userId=req.user._id;
       const appointments=await Appointment.find({patient:userId}).populate('doctor','username specialization location').sort({appointmentDates:-1});
-      console.log(appointments);
-      return res.json({success:true,appointments});
+      if(appointments){
+        console.log(appointments);
+        return res.json({success:true,appointments});
+      }
+      else{
+        return res.json({success:true,message:"No appointments found"});
+      }
     } catch (error) {
     return res.json({success:false,message:error.message});
   }
