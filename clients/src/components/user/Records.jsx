@@ -18,9 +18,6 @@ const [showAll, setShowAll] = useState(false);
         if(data.success && data.appointments){
           setRecords(data.appointments)
         }
-        else{
-          setRecords([]);
-        }
       } catch (error) {
         console.log(error);
       }
